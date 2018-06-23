@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Sps</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sps.each do |sp| %>
+      <tr>
+        <td><%= link_to 'Show', sp %></td>
+        <td><%= link_to 'Edit', edit_sp_path(sp) %></td>
+        <td><%= link_to 'Destroy', sp, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sp', new_sp_path %>
