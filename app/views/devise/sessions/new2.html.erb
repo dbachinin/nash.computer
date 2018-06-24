@@ -1,0 +1,26 @@
+<%= form_for(:user, url: session_path(:user)) do |f| %>
+<div class="form-group">
+  <%= f.label :name, class: "col-md-2 col-form-label" %> <br />
+  <div class="col-md-10">
+    <%= f.text_field :name, placeholder: "You name or email", autofocus: true, class: "form-control"%>
+  </div>
+</div>
+<div class="form-group">
+  <%= f.label :password, class: "col-md-2 col-form-label", for: "InputPassword" %><br />
+  <div class="col-md-10">
+    <%= f.password_field :password, placeholder: "You password", autocomplete: "off", id: "InputPassword2", class: "form-control" %>
+  </div>
+</div>
+
+<div class="row">
+  <label style="margin-left: 29px;">
+  <%= f.check_box :remember_me %>
+  <%= f.label :remember_me, "Save password" %>
+  </label>
+</div>
+<div class="col-md-10">
+  <%= f.submit "Log in", class: "btn btn-primary btn-sm" %><%= link_to "Forgot your password?", new_user_password_path %>
+</div>
+
+
+<% end %>

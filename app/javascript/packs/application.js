@@ -6,12 +6,11 @@
 //
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
+
 import "../src/application.scss";
 import "bootstrap/dist/css/bootstrap.css";
 import 'bootstrap/dist/js/bootstrap';
-import "jquery"
-import "jquery-ujs"
-
+global.jQuery = require('jquery');
 console.log('Hello World from Webpacker')
 
 // $('.carousel').on('mouseenter',function(){ $( this ).carousel();})

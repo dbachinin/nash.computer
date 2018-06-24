@@ -1,0 +1,29 @@
+<%= form_for(resource, as: resource_name, url: new_user_registration_path) do |f| %>
+<%= render 'layouts/errors', object: f.object -%>
+<div class="form-group">
+  <%= f.label :Имя_Пользователя, class: 'col-md-2 col-form-label'%>
+  <div class="col-md-10"><%= f.text_field :name, placeholder: "Желаемое имя", class: "form-control" %></div>
+</div>
+<div class="form-group">
+       <%= f.label "Ваша электронная почта", class: 'col-md-2 col-form-label'%>
+  <div class="col-md-10"><%= f.email_field :email, placeholder: "Почта", autofocus: true, autocomplete: "email", class: "form-control" %></div>
+</div>
+<div class="form-group">
+  <%= f.label :Пароль %>
+  <% if @minimum_password_length %>
+  <em>(<%= @minimum_password_length %> characters minimum)</em>
+  <% end %><br />
+  <div class="col-md-10"><%= f.password_field :password,placeholder: "Ваш пароль", autocomplete: "off", class: "form-control" %></div>
+</div>
+<div class="form-group">
+  <%= f.label :Подтверждение_пароля %><br />
+  <div class="col-md-10"><%= f.password_field :password_confirmation,placeholder: "Повторите пароль", autocomplete: "off", class: "form-control" %></div>
+</div>
+<div class="row">
+     <div class="col-md-2"></div>
+     <div class="col-md-10">
+  <%= f.submit "Sign up", class: 'btn btn-primary btn-sm' %>
+  <button type="button" class="btn btn-secondary btn-sm close" data-dismiss="modal">Cancel</button>
+</div>
+</div>
+<%end%>
