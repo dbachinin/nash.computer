@@ -1,1 +1,1 @@
-json.array! @homes, partial: 'homes/home', as: :home
+json.array! @sps, partial: 'sps/sp', as: :sp

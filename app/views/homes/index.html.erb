@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Homes</h1>
+<h1>Sps</h1>
 
 <table>
   <thead>
@@ -10,11 +10,11 @@
   </thead>
 
   <tbody>
-    <% @homes.each do |home| %>
+    <% @sps.each do |sp| %>
       <tr>
-        <td><%= link_to 'Show', home %></td>
-        <td><%= link_to 'Edit', edit_home_path(home) %></td>
-        <td><%= link_to 'Destroy', home, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to 'Show', sp %></td>
+        <td><%= link_to 'Edit', edit_sp_path(sp) %></td>
+        <td><%= link_to 'Destroy', sp, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -22,4 +22,4 @@
 
 <br>
 
-<%= link_to 'New Home', new_home_path %>
+<%= link_to 'New Sp', new_sp_path %>
