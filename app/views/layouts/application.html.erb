@@ -1,17 +1,28 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>NashComputer</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= javascript_pack_tag 'application' %>
-    <%= stylesheet_pack_tag 'application' %>
-  </head>
+<html lang="ru-RU">
+<head>
+  <title>Наш Компьютер</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= javascript_pack_tag 'application' %>
+  <%= javascript_pack_tag 'hello_react' %>
+  <%= stylesheet_pack_tag 'application' %>
+  <script type="text/javascript">
+    $ = jQuery;
+  </script>
+</head>
 
-  <body>
-    <%= render 'layouts/header'%>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
-    <%= yield %>
-  </body>
+<body>
+  <%= render 'layouts/header'%>
+  <br />
+  <br />
+    <% flash.each do |name, msg| %>
+    <%= content_tag(:div, msg, class: "alert alert-info") %>
+    <% end %>
+  </div>
+  <%= yield %>
+</body>
+<script type="text/javascript">
+$(".alert" ).fadeOut(5000);
+</script>
 </html>

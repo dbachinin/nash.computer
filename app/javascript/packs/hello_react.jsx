@@ -6,21 +6,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
 
-const Hello = props => (
-  <div>Hello {props.name}!</div>
-)
+export default class HelloWorld extends React.Component {
+  constructor(props, _railsContext) {
+    super(props);
+  }
 
-Hello.defaultProps = {
-  name: 'Enuary'
+  render() {
+    return (
+      <h1>Hello, {this.props.name}!</h1>
+    );
+  }
 }
-
-Hello.propTypes = {
-  name: PropTypes.string
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  ReactDOM.render(
-    <Hello props />,
-    document.body.appendChild(document.createElement('div')),
-  )
-})
