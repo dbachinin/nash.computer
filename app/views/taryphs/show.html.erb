@@ -1,0 +1,28 @@
+<div class="d-block mx-auto col-sm-4">
+	<div class="card">
+		<div class="card-header"><h3 class="text-center"><%= @taryph.name %><%= " (Отключен)" if @taryph.sleep == true%></h3></div>
+<p>
+  <strong class="card-text ml-2">Опции:</strong>
+  <%= @taryph.options.reject{|i|i.empty?}.map{|i|Sp.find(i).name}.join(', ') %>
+</p>
+
+<p>
+  <strong class="card-text ml-2">Цена:</strong>
+  <%= @taryph.price %>
+</p>
+<p>
+  <strong class="card-text ml-2">Примечание:</strong>
+  <%= @taryph.description %>
+</p>
+<p>
+  <strong class="card-text ml-2">Период действия:</strong>
+  <%= @taryph.period %>
+</p>
+<div class="card-footer">
+<%= link_to 'Правка', edit_taryph_path(@taryph) %> |
+<%= link_to 'Назад', :back %> |
+<%= link_to 'Root', root_path %>
+
+</div>
+</div>
+</div>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :taryphs
   devise_for :users, :path => 'users'
   resources :users, shallow: true do
    resources :licenses

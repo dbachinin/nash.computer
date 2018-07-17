@@ -1,0 +1,27 @@
+<div class="ml-2 mr-2">
+<%= simple_form_for(@taryph) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.select :options,
+  @sps.map{|i| [i.name, i._id]},
+  { :prompt => "Выбор опций"},
+  { :multiple => true, :size => 12, :class => "form-control" } %>
+    <%= f.label 'Цена' %>
+    <%= f.input :price, label: false %>
+    <%= f.label 'Имя' %>
+    <%= f.input :name, label: false %>
+    <%= f.label 'Период' %>
+    <%= f.input :period, label: false %>
+    <%= f.label 'Примечание' %>
+    <%= f.input :description, as: :text, label: false %>
+    <%= f.label 'Включен' %>
+    <%= f.input :sleep, as: :boolean, label: false %>    
+  </div>
+  <br />
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>
+</div>

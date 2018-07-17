@@ -1,28 +1,91 @@
 <!DOCTYPE html>
 <html lang="ru-RU">
 <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="НашКомпьютер">
+  <meta name="author" content="dbachinin">
+  
   <title>Наш Компьютер</title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <%= javascript_pack_tag 'application' %>
-  <%= javascript_pack_tag 'hello_react' %>
   <%= stylesheet_pack_tag 'application' %>
-  <script type="text/javascript">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+  <script src='http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.5/jquery-ui.min.js'></script>
+<!--   <script type="text/javascript">
     $ = jQuery;
-  </script>
+  </script> -->
 </head>
 
-<body>
-  <%= render 'layouts/header'%>
+<body id="page-top">
+  <% if request.original_fullpath == '/' %>
+    <%= render 'layouts/header'%>
+  <% end %>
   <br />
   <br />
     <% flash.each do |name, msg| %>
     <%= content_tag(:div, msg, class: "alert alert-info") %>
     <% end %>
   </div>
+  <div class="mt-4">
   <%= yield %>
+  <% if request.original_fullpath == '/' %>
+  </div>
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        <p class="m-0 text-center text-white">Copyright &copy; НашКомпьютер 2018</p>
+      </div>
+      <!-- /.container -->
+    </footer>
+    <div class="scroll-to-top d-lg-none position-fixed ">
+      <a class="js-scroll-trigger d-block text-center text-white rounded" href="index.html#page-top">
+        <i class="fa fa-chevron-up"></i>
+      </a>
+    </div>
+    <% end %>
 </body>
 <script type="text/javascript">
-$(".alert" ).fadeOut(5000);
+// $(".alert" ).fadeOut(5000);
+// $('.carousel').carousel({
+//   interval: 10000
+// })
+
+!function(o)
+{
+  "use strict";
+o('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function(){
+  if(location.pathname.replace(/^\//,"")==this.pathname.replace(/^\//,"")&&location.hostname==this.hostname){
+    var t=o(this.hash);
+    if((t=t.length?t:o("[name="+this.hash.slice(1)+"]")).length)return o("html, body").animate({
+      scrollTop:t.offset().top-70},1e3,"easeInOutExpo"),!1}
+  }),
+o(document).scroll(function(){
+  o(this).scrollTop()>100?o(".scroll-to-top").fadeIn():o(".scroll-to-top").fadeOut()}),o(".js-scroll-trigger").click(function(){
+    o(".navbar-collapse").collapse("hide")
+  }),
+  o("body").scrollspy({
+    target:"#mainNav",offset:80
+  });
+  var t=function(){o("#mainNav").offset().top>100?o("#mainNav").addClass("navbar-shrink"):o("#mainNav").removeClass("navbar-shrink")};
+  t(),o(window).scroll(t),o(".portfolio-item").magnificPopup({
+    type:"inline",preloader:!1,focus:"#username",modal:!0
+  }),
+  o(document).on("click",".portfolio-modal-dismiss",function(t){
+    t.preventDefault(),o.magnificPopup.close()
+  }),o(function(){
+    o("body").on("input propertychange",".floating-label-form-group",
+      function(t){
+        o(this).toggleClass("floating-label-form-group-with-value",!!o(t.target).val())
+      }).on("focus",".floating-label-form-group",function(){
+        o(this).addClass("floating-label-form-group-with-focus")
+      }).on("blur",".floating-label-form-group",function(){
+        o(this).removeClass("floating-label-form-group-with-focus")
+      })
+    })
+}(jQuery);
 </script>
 </html>

@@ -1,10 +1,11 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Sps</h1>
-
-<table>
+<h1 class="text-center">Тарифные опции</h1>
+<div class="d-block mx-auto col-sm-4">
+<table class="table table-striped table-sm">
   <thead>
     <tr>
+      <th>Пакет услуг</th>
+      <th>Цена</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -12,9 +13,11 @@
   <tbody>
     <% @sps.each do |sp| %>
       <tr>
+        <td><%= sp.name %></td>
+        <td><%= sp.price %></td>
         <td><%= link_to 'Show', sp %></td>
         <td><%= link_to 'Edit', edit_sp_path(sp) %></td>
-        <td><%= link_to 'Destroy', sp, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= button_to 'Destroy', sp, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -23,3 +26,6 @@
 <br>
 
 <%= link_to 'New Sp', new_sp_path %>
+<%= link_to("Тарифы", taryphs_path) %>
+<%= link_to("Root", root_path ) %>
+</div>

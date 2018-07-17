@@ -1,12 +1,18 @@
 class SpsController < ApplicationController
   before_action :set_sp, only: [:show, :edit, :update, :destroy]
-
+  before_action :authenticate_user!, :is_admin?
   # GET /sps
   # GET /sps.json
   def index
     @sps = Sp.all
   end
-
+  def is_admin?
+    unless current_user.is_admin
+      redirect_to root_path, notice: 'Вы не имеете прав'
+    else
+      @user = current_user
+    end
+  end
   # GET /sps/1
   # GET /sps/1.json
   def show
@@ -69,6 +75,6 @@ class SpsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sp_params
-      params.fetch(:sp, {})
+      params.require(:sp).permit(:price, :name, :spec_act)
     end
 end

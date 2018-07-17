@@ -1,4 +1,10 @@
-<p id="notice"><%= notice %></p>
+<div class="d-block mx-auto col-sm-4">
+	<div class="card">
+		<p class="card-header"><b><%= @sp.name %></b></p>
+		<p><b>Цена:</b><%= @sp.price %></p>
+    </div>
+    <%= link_to 'Edit', edit_sp_path(@sp) %> |
+<%= link_to 'Back', sps_path %> |
+<%= link_to 'Taryph', taryphs_path %>
+</div>
 
-<%= link_to 'Edit', edit_sp_path(@sp) %> |
-<%= link_to 'Back', sps_path %>

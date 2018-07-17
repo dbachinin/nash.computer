@@ -1,0 +1,32 @@
+<h1 class="text-center">Тарифны</h1>
+<div class="d-block mx-auto col-sm-4">
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Опции</th>
+      <th>Цена</th>
+      <th>Имя</th>
+      <th>Период</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @taryphs.each do |taryph| %>
+      <tr>
+        <td><%= taryph.options.reject{|i|i.empty?}.map{|i|Sp.find(i).name}.join(', ').truncate(35) %></td>
+        <td><%= taryph.price %></td>
+        <td><%= taryph.name %></td>
+        <td><%= taryph.period %></td>
+        <td><%= link_to 'Показать', taryph, class: 'btn btn-secondary' %></td>
+        <td><%= link_to 'Правка', edit_taryph_path(taryph), class: 'btn btn-info' %></td>
+        <td><%= button_to 'Удалить', taryph, method: :delete, data: { confirm: 'Вы серъезно?' }, class: 'btn btn-danger' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= button_to 'Создать', new_taryph_path, method: :get %>
+</div>

@@ -11,6 +11,7 @@ environment.plugins.prepend('Provide', new webpack.ProvidePlugin({
     Popper: ['popper.js', 'default'], // for Bootstrap 4
     React: 'react',
     ReactDOM: 'react-dom',
+
   })
 )
 

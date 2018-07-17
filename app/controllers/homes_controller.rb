@@ -5,7 +5,11 @@ class HomesController < ApplicationController
   # GET /homes.json
   def index
     @sps = Sp.all
+    @taryphs = Taryph.any_of({sleep: false},{sleep: "0"}).all
     @user = current_user if current_user
+    if @user != nil
+    	@admin = true if @user.is_admin
+    end  
   end
 
 end
