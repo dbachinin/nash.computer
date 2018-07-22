@@ -2,6 +2,7 @@
 	<div class="card">
 		<p class="card-header"><b><%= @sp.name %></b></p>
 		<p><b>Цена:</b><%= @sp.price %></p>
+		<p><b>Примечание: </b><%= @sp.description%></p>
     </div>
     <%= link_to 'Edit', edit_sp_path(@sp) %> |
 <%= link_to 'Back', sps_path %> |

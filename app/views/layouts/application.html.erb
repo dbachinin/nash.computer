@@ -23,14 +23,11 @@
 <body id="page-top">
   <% if request.original_fullpath == '/' %>
     <%= render 'layouts/header'%>
-  <% end %>
-  <br />
-  <br />
+  <% else %>
     <% flash.each do |name, msg| %>
-    <%= content_tag(:div, msg, class: "alert alert-info") %>
+       <%= content_tag(:li, msg, class: "nav-item alert alert-info") %>
     <% end %>
-  </div>
-  <div class="mt-4">
+    <% end %>
   <%= yield %>
   <% if request.original_fullpath == '/' %>
   </div>
@@ -42,14 +39,15 @@
       <!-- /.container -->
     </footer>
     <div class="scroll-to-top d-lg-none position-fixed ">
-      <a class="js-scroll-trigger d-block text-center text-white rounded" href="index.html#page-top">
+      <a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top">
         <i class="fa fa-chevron-up"></i>
       </a>
     </div>
+        
     <% end %>
 </body>
 <script type="text/javascript">
-// $(".alert" ).fadeOut(5000);
+jQuery(".alert" ).fadeOut(7000);
 // $('.carousel').carousel({
 //   interval: 10000
 // })
@@ -87,5 +85,6 @@ o(document).scroll(function(){
       })
     })
 }(jQuery);
+// $(".alert" ).fadeOut(5000);
 </script>
 </html>

@@ -75,6 +75,6 @@ class SpsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sp_params
-      params.require(:sp).permit(:price, :name, :spec_act)
+      params.require(:sp).permit(:price, :name, :spec_act, :description)
     end
 end

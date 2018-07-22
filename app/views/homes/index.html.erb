@@ -53,14 +53,14 @@
                         <div class="accordion-heading"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2"
                             href="#collapseOne">
 
-                            Конечно-же саму MS Windows!<licon class="li_diamond"></licon>
+                            Цена MS Windows!<licon class="li_diamond"></licon>
 
                             </a>
                         </div>
                         <!-- /accordion-heading -->
                         <div id="collapseOne" class="accordion-body collapse show">
                             <div class="accordion-inner mr-4">
-                                <p>Либо в полную цену, либо её стоимость будет снижена и включена в стоимость компьютера.</p>
+                                <p>В стоимость компьютера как правило входит стоимость и копии Windows. Как правило она уменьшена и является оптовой.</p>
                             </div>
                             <!-- /accordion-inner -->
                         </div>
@@ -72,13 +72,13 @@
                         <div class="accordion-heading"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2"
                             href="#collapseTwo">
 
-                             Далее? Антивирус!<licon class="li_display"></licon>
+                             Антивирус!<licon class="li_display"></licon>
 
                             </a>
                         </div>
                         <div id="collapseTwo" class="accordion-body collapse">
                             <div class="accordion-inner mr-4">
-                                <p>Без его защиты любой клик по ссылке, может привести к неработоспособности компьютера или даст доступ вымогателям к вашим личным данным!</p>
+                                <p>Без его защиты любой клик по ссылке, на сайте или в сообщениии, может привести к неработоспособности компьютера или даст доступ вымогателям к вашим личным данным!</p>
                             </div>
                             <!-- /accordion-inner -->
                         </div>
@@ -226,6 +226,7 @@
         <% @taryphs.each do |taryph| %>
         <div class="col-lg-3 col-md-6 mb-4">
           <div class="card">
+            <div class="card-hader text-white" style="background: black;font-size: 25px;"><b><%= taryph.price %> ₽</b></div>
             <img class="card-img-top" src="http://placehold.it/500x325" alt="">
             <div class="card-body">
               <h4 class="card-title"><%= taryph.name %></h4>
@@ -233,10 +234,12 @@
               <p class="card-text"><%= taryph.description %></p>
             </div>
             <div class="card-footer">
-              <a href="#" class="btn btn-primary">Узнать больше!</a>
+              <button class="btn btn-primary my-2 my-sm-0 mx-auto py-3 px-0 px-lg-3" style="color:#18bc9c;" data-toggle="modal" data-target="#modal-<%=taryph._id.to_s%>">Узнать больше!</button>
             </div>
           </div>
         </div>
+
+
         <% end %>
       </div>
       <% if @admin %>
@@ -302,3 +305,55 @@
 <% end %>
     <!-- /.container -->
 
+<%# if request.original_fullpath == '/' %>
+<% @taryphs.each do |taryph| %>
+    <div class="modal fade" id="modal-<%=taryph._id.to_s%>" tabindex="-1" role="dialog" aria-labelledby="<%= taryph.id %>ModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document" style="max-width: 750px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="text-secondary text-uppercase mb-0 modal-title" id="<%= taryph.id %>ModalLabel">Тарифный план <%= taryph.name %></h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="container text-center">
+        <h2 class="text-secondary text-uppercase mb-0">В цену <%= taryph.price %> рублей</h2>
+
+        </div>
+        <p class="text-center"> входят: </p>
+        <hr>
+        <div class="row">
+         <div class="col-sm-4">
+          <div class="list-group" id="list-tab" role="tablist">
+          <% taryph.options.select{|i|! i.empty?}.each_with_index do |op,i| %>
+            <a class="list-group-item list-group-item-action <%='active' if i == 0%>" id="list-<%="#{i}-#{taryph._id.to_s}"%>-list" data-toggle="list" href="#list-<%="#{i}-#{taryph._id.to_s}"%>" role="tab" aria-controls="<%="#{i}-#{taryph._id.to_s}"%>"><%= Sp.find(op).name %></a>
+          <% end %>
+          </div>
+          </div>
+          <div class="col-sm-8">
+           <div class="tab-content" id="nav-tabContent">
+          <% taryph.options.select{|i|! i.empty?}.each_with_index do |op,i| %>
+            <div class="tab-pane fade <%='active show' if i == 0%>" id="list-<%="#{i}-#{taryph._id.to_s}"%>" role="tabpanel" aria-labelledby="list-<%="#{i}-#{taryph._id.to_s}"%>-list"><%=Sp.find(op).description%></div>
+          <% end %>
+           </div>
+         </div>
+        </div>
+        <hr>
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <p class="mb-5"><%= taryph.description %></p>
+              
+            </div>
+          </div>
+      </div>
+        <div class="modal-footer">
+          <%= link_to("Правка", taryph, class: "btn btn-info") if @admin%>
+           <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+           <button type="button" class="btn btn-primary">Оформить предзаказ</button>
+      </div>
+    </div>
+  </div>
+</div>
+     <% end %>
+<%# end %>

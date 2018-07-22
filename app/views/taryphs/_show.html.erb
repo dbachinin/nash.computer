@@ -1,0 +1,17 @@
+<p>
+  <strong class="card-text ml-2">Опции:</strong>
+  <%= @taryph.options.reject{|i|i.empty?}.map{|i|Sp.find(i).name}.join(', ') %>
+</p>
+
+<p>
+  <strong class="card-text ml-2">Цена:</strong>
+  <%= @taryph.price %>
+</p>
+<p>
+  <strong class="card-text ml-2">Примечание:</strong>
+  <%= @taryph.description %>
+</p>
+<p>
+  <strong class="card-text ml-2">Период действия:</strong>
+  <%= @taryph.period %>
+</p>
