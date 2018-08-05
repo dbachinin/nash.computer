@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, :check_admin
+
       respond_to :json
   include AvatarHelper
   def index
@@ -10,15 +11,18 @@ class UsersController < ApplicationController
       @users = User.where(id: current_user.id)
     end
   end
+  def check_admin
+    return true if current_user.is_admin
+  end
 
   def show
-    if current_user.is_admin
+    if check_admin
       @user = User.find(params[:id])
     else
       @user = User.find(params[:id])
       unless params[:id] == current_user._id.to_s
         @user = User.find(current_user.id)
-        flash[:error] = "You don`t have permission to edit this account.\n You redirected to you edit page."
+        flash[:error] = "Вы не имеете прав на просмотр этой страницы. \n Вы будете переаедены на начальную страницу."
       end
     end
   end
@@ -53,9 +57,11 @@ end
 
   def destroy
     @user = User.find(params[:id])
-    @user.destroy
-    respond_to do |format|
-      format.html { redirect_to root_path, notice: 'User was successfully destroyed.' }
+    if current_user.id == @user.id or check_admin
+      @user.destroy
+      respond_to do |format|
+        format.html { redirect_to root_path, notice: 'User was successfully destroyed.' }
+      end
     end
   end
 

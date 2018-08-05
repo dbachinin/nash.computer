@@ -249,3 +249,11 @@ licon {
 .li_world:before {
   content: "\e02f";
 }
+
+.slow:before {
+  content: url(../images/12.svg);
+}
+
+.slowfix:before {
+  content: url(../images/11.svg);
+}

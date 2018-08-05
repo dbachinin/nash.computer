@@ -18,6 +18,9 @@
 <!--   <script type="text/javascript">
     $ = jQuery;
   </script> -->
+<!--   <style>
+    .btn{border-radius: 20px;}
+  </style> -->
 </head>
 
 <body id="page-top">
@@ -36,6 +39,11 @@
       <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; НашКомпьютер 2018</p>
       </div>
+      <% if @admin %>
+        <li class="nav-item mx-0 mx-lg-1">
+            <%= link_to("Пользователи", users_path) %>
+        </li>
+      <%end%>
       <!-- /.container -->
     </footer>
     <div class="scroll-to-top d-lg-none position-fixed ">

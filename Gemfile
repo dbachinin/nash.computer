@@ -21,6 +21,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'mongoid'
 gem 'devise'
 gem 'foreman'
+# gem 'tinymce-rails'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 gem 'rmagick'

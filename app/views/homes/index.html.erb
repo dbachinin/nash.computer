@@ -53,14 +53,14 @@
                         <div class="accordion-heading"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2"
                             href="#collapseOne">
 
-                            Цена MS Windows!<licon class="li_diamond"></licon>
+                            Цена!<licon class="li_diamond"></licon>
 
                             </a>
                         </div>
                         <!-- /accordion-heading -->
                         <div id="collapseOne" class="accordion-body collapse show">
                             <div class="accordion-inner mr-4">
-                                <p>В стоимость компьютера как правило входит стоимость и копии Windows. Как правило она уменьшена и является оптовой.</p>
+                                <p>В стоимость компьютера как заложена и стоимость копии операционной системы.</p>
                             </div>
                             <!-- /accordion-inner -->
                         </div>
@@ -114,14 +114,33 @@
                         </div>
                         <div id="collapseFour" class="accordion-body collapse">
                             <div class="accordion-inner mr-4">
-                                <p>Конечно-же вы используете платный Word или Exel из MS Office! Бесплатные-же варианты этих программ плохо работают с выравниванием документа.</p>
+                                <p>Конечно-же вы используете платные офисные программы! Бесплатные-же варианты этих программ плохо работают с выравниванием документа.</p>
+                            </div>
+                            <!-- /accordion-inner -->
+                        </div>
+                        <!-- /collapse -->
+                    </div>
+                    <br>
+                    <div class="accordion-group">
+                        <div class="accordion-heading"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2"
+                            href="#collapseFour">
+
+                            Ваш копьютер стал работать медленно?<licon class="slow"></licon>
+
+                            </a>
+                        </div>
+                        <div id="collapseFour" class="accordion-body collapse">
+                            <div class="accordion-inner mr-4">
+                                <p>Время включения стало невероятно-долгим. А простые операции требуют нескольких минут ожидания?</p>
+                                <p>Это известная особенность операционной системы Windows</p>
+                                <p>Со временем даже на очень хорошем и мощном "железе", обычный компьютер начинает очень сильно греться и "тормозить". Лечится это переустановкой операционной системы.</p>
                             </div>
                             <!-- /accordion-inner -->
                         </div>
                         <!-- /collapse -->
                     </div>
                     <!-- /accordion-group -->
-                    <br>
+
                   </div>
                 </div>
                 <!-- Accordion -->
@@ -152,7 +171,7 @@
                         <div class="accordion-heading"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3"
                             href="#collapseTwo2">
 
-                             <licon class="li_shield"></licon>Антивирус - не нужен!
+                             <licon class="li_shield"></licon>Антивирус? В Вашем случае, - он уже не нужен!
 
                             </a>
                         </div>
@@ -202,6 +221,24 @@
                     </div>
                     <!-- /accordion-group -->
                     <br>
+                    <div class="accordion-group">
+                        <div class="accordion-heading"> <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion3"
+                            href="#collapseFour2">
+
+                            <licon class="slowfix"></licon>Даже спустя десятки лет, быстродействие остаётся на том-же уровне как и раньше.
+
+                            </a>
+                        </div>
+                        <div id="collapseFour2" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <p>Наша операционная система, использует более-удачные алгоритмы работы с данными пользователя. И не собирает ненужный мусор замедляющий работу. А если где-то что-то и мешает Вам получать удовольствие от работы или игр, - наша команда справится с этими проблемами!</p>
+                            </div>
+                            <!-- /accordion-inner -->
+                        </div>
+                        <!-- /collapse -->
+                    </div>
+                    <!-- /accordion-group -->
+
                 </div>
                 <!-- Accordion -->
             </div>
@@ -231,10 +268,15 @@
             <div class="card-body">
               <h4 class="card-title"><%= taryph.name %></h4>
               <hr>
-              <p class="card-text"><%= taryph.description %></p>
+              <p class="card-text"><%= raw taryph.description %></p>
             </div>
             <div class="card-footer">
-              <button class="btn btn-primary my-2 my-sm-0 mx-auto py-3 px-0 px-lg-3" style="color:#18bc9c;" data-toggle="modal" data-target="#modal-<%=taryph._id.to_s%>">Узнать больше!</button>
+              <% if user_signed_in? %>
+              <button class="btn btn-primary my-2 my-sm-0 mx-auto py-3 px-0 px-lg-3" data-toggle="modal" data-target="#modal-<%=taryph._id.to_s%>">Узнать больше!</button>
+              <% else %>
+              <button class="btn btn-primary my-2 my-sm-0 mx-auto py-3 px-0 px-lg-3" style="color:#18bc9c;" data-toggle="modal" data-target="#myModal">Вход/Регистрация</button>
+              <p><small>(Просто <b>зарегистрируйтесь</b> или войдите, для просмотра подробностей.)</small></p>
+              <% end %>
             </div>
           </div>
         </div>
@@ -324,7 +366,7 @@
         <p class="text-center"> входят: </p>
         <hr>
         <div class="row">
-         <div class="col-sm-4">
+         <div class="col-sm-4 border-right">
           <div class="list-group" id="list-tab" role="tablist">
           <% taryph.options.select{|i|! i.empty?}.each_with_index do |op,i| %>
             <a class="list-group-item list-group-item-action <%='active' if i == 0%>" id="list-<%="#{i}-#{taryph._id.to_s}"%>-list" data-toggle="list" href="#list-<%="#{i}-#{taryph._id.to_s}"%>" role="tab" aria-controls="<%="#{i}-#{taryph._id.to_s}"%>"><%= Sp.find(op).name %></a>
@@ -334,7 +376,7 @@
           <div class="col-sm-8">
            <div class="tab-content" id="nav-tabContent">
           <% taryph.options.select{|i|! i.empty?}.each_with_index do |op,i| %>
-            <div class="tab-pane fade <%='active show' if i == 0%>" id="list-<%="#{i}-#{taryph._id.to_s}"%>" role="tabpanel" aria-labelledby="list-<%="#{i}-#{taryph._id.to_s}"%>-list"><%=Sp.find(op).description%></div>
+            <div class="tab-pane fade <%='active show' if i == 0%>" id="list-<%="#{i}-#{taryph._id.to_s}"%>" role="tabpanel" aria-labelledby="list-<%="#{i}-#{taryph._id.to_s}"%>-list"><%= raw Sp.find(op).description%></div>
           <% end %>
            </div>
          </div>
@@ -342,7 +384,7 @@
         <hr>
           <div class="row">
             <div class="col-lg-8 mx-auto">
-              <p class="mb-5"><%= taryph.description %></p>
+              <p class="mb-5"><%= raw taryph.description %></p>
               
             </div>
           </div>
