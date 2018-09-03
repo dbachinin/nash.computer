@@ -392,7 +392,8 @@
         <div class="modal-footer">
           <%= link_to("Правка", taryph, class: "btn btn-info") if @admin%>
            <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
-           <button type="button" class="btn btn-primary">Оформить предзаказ</button>
+           <!-- <button type="button" class="btn btn-primary">Оформить предзаказ</button> -->
+           <%= button_to 'Оформить предзаказ', users_create_pre_order_path, params: { taryph_id: taryph._id.to_s }, class: "btn btn-primary" %>
       </div>
     </div>
   </div>

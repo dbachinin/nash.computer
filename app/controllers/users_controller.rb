@@ -48,13 +48,21 @@ class UsersController < ApplicationController
    # @user.avatar = create_avatar(@user.id)
    respond_to do |format|
     if @user.update(user_params)
-      format.html { redirect_to  users_path, notice: "#{@user.name} was successfully updated." }
+      format.html { redirect_to  users_path, notice: "#{@user.name} успешно обновлён." }
     else
       format.html { render :edit }
     end
   end
 end
 
+def create_pre_order
+  @order = current_user.order.build
+  @order.taryph_id = params[:taryph_id]
+  respond_to do |format|
+    if @order.save
+      format.json 
+    end
+end
   def destroy
     @user = User.find(params[:id])
     if current_user.id == @user.id or check_admin

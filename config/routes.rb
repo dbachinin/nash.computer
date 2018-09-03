@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   get 'homes/index'
   root to: "homes#index"
   post 'users/change_pic'
+  post 'users/create_pre_order'
 end

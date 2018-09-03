@@ -14,7 +14,7 @@ class User
   end
   before_save :add_admin, :gen_pic, if: :new_record?
   # has_many :license, dependent: :delete
-
+  has_many :order
 
   ## Database authenticatable
   field :email,              type: String, default: ""
