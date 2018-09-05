@@ -60,8 +60,9 @@ def create_pre_order
   @order.taryph_id = params[:taryph_id]
   respond_to do |format|
     if @order.save
-      format.json 
+      format.json
     end
+  end
 end
   def destroy
     @user = User.find(params[:id])
