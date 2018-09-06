@@ -18,9 +18,210 @@
 <!--   <script type="text/javascript">
     $ = jQuery;
   </script> -->
-<!--   <style>
-    .btn{border-radius: 20px;}
-  </style> -->
+  <style>
+    /*Body Styling */
+
+body {
+  font-family: 'Open Sans', San-Serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  margin-top:80px;
+  font-weight: bold;
+}
+
+p {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.btn {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+/* Boostrap Buttons Styling */
+
+.btn-default {
+  font-family: 'Montserrat';
+
+  font-size: 13px;
+  color: rgba(108, 88, 179, 0.75);
+  letter-spacing: 1px;
+  line-height: 15px;
+  border: 2px solid rgba(108, 89, 179, 0.75);
+  border-radius: 40px;
+  background: transparent;
+  transition: all 0.3s ease 0s;
+}
+
+.btn-default:hover {
+  color: #FFF;
+  background: rgba(108, 88, 179, 0.75);
+  border: 2px solid rgba(108, 89, 179, 0.75);
+}
+
+.btn-primary {
+  font-family: 'Montserrat';
+  font-weight: bold;
+  font-size: 13px;
+  color: rgba(58, 133, 191, 0.75);
+  letter-spacing: 1px;
+  line-height: 15px;
+  border: 2px solid rgba(58, 133, 191, 0.75);
+  border-radius: 40px;
+  background: transparent;
+  transition: all 0.3s ease 0s;
+}
+
+.btn-primary:hover {
+  color: #FFF;
+  background: rgba(58, 133, 191, 0.75);
+  border: 2px solid rgba(58, 133, 191, 0.75);
+}
+
+.btn-success {
+  font-family: 'Montserrat';
+  font-size: 13px;
+  color: rgba(103, 192, 103, 0.75);
+  letter-spacing: 1px;
+  line-height: 15px;
+  border: 2px solid rgba(103, 192, 103, 0.75);
+  border-radius: 40px;
+  background: transparent;
+  transition: all 0.3s ease 0s;
+}
+
+.btn-success:hover {
+  color: #FFF;
+  background: rgb(103, 192, 103, 0.75);
+  border: 2px solid rgb(103, 192, 103, 0.75);
+}
+
+.btn-info {
+  font-family: 'Montserrat';
+  font-size: 13px;
+  color: rgba(91, 192, 222, 0.75);
+  letter-spacing: 1px;
+  line-height: 15px;
+  border: 2px solid rgba(91, 192, 222, 0.75);
+  border-radius: 40px;
+  background: transparent;
+  transition: all 0.3s ease 0s;
+}
+
+.btn-info:hover {
+  color: #FFF;
+  background: rgba(91, 192, 222, 0.75);
+  border: 2px solid rgba(91, 192, 222, 0.75);
+}
+
+.btn-warning {
+  font-family: 'Montserrat';
+  font-size: 13px;
+  color: rgba(240, 173, 78, 0.75);
+  letter-spacing: 1px;
+  line-height: 15px;
+  border: 2px solid rgba(240, 173, 78, 0.75);
+  border-radius: 40px;
+  background: transparent;
+  transition: all 0.3s ease 0s;
+}
+
+.btn-warning:hover {
+  color: #FFF;
+  background: rgb(240, 173, 78, 0.75);
+  border: 2px solid rgba(240, 173, 78, 0.75);
+}
+
+.btn-danger {
+  font-family: 'Montserrat';
+  font-size: 13px;
+  color: rgba(217, 83, 78, 0.75);
+  letter-spacing: 1px;
+  line-height: 15px;
+  border: 2px solid rgba(217, 83, 78, 0.75);
+  border-radius: 40px;
+  background: transparent;
+  transition: all 0.3s ease 0s;
+}
+
+.btn-danger:hover {
+  color: #FFF;
+  background: rgba(217, 83, 78, 0.75);
+  border: 2px solid rgba(217, 83, 78, 0.75);
+}
+.box-overlayed {
+ position:absolute;
+ z-index:100;
+ bottom:-5rem;
+ left:50%;
+ display:flex;
+ flex-direction:column;
+ max-width:23.125rem;
+ min-height:10.625rem;
+ margin-right:auto;
+ margin-left:auto;
+ margin-left:-11.5625rem;
+ padding:1.875rem;
+ color:#fff;
+ border-radius:.625rem;
+ background:#354052;
+ justify-content:center
+}
+.box-overlayed:before {
+ position:absolute;
+ top:-.5rem;
+ right:calc(50% - .5rem);
+ display:block;
+ width:1rem;
+ height:1rem;
+ content:'';
+ transform:rotate(45deg);
+ background:#354052
+}
+[data-animate-hover] .animate-this {
+ position:relative;
+ top:0;
+ transition:all .2s ease-in-out;
+ will-change:transform
+}
+@media screen and (prefers-reduced-motion:reduce) {
+ [data-animate-hover] .animate-this {
+  transition:none
+ }
+}
+[data-animate-hover='1']:hover .animate-this {
+ top:-1rem;
+ box-shadow:0 .5rem 1rem rgba(0,0,0,.08)
+}
+[data-animate-hover='2']:hover .animate-this {
+ z-index:10;
+ transform:scale(1.1);
+ box-shadow:0 .5rem 1rem rgba(0,0,0,.08)
+}
+[data-animate-items] .animate-item,[data-animate-items] .animate-item--visible {
+ transition:all .2s ease-in-out
+}
+@media screen and (prefers-reduced-motion:reduce) {
+ [data-animate-items] .animate-item,[data-animate-items] .animate-item--visible {
+  transition:none
+ }
+}
+[data-animate-items] .animate-item {
+ display:none;
+ animation:hide_item .2s ease forwards;
+ animation-delay:.5s;
+ opacity:0;
+ will-change:transform
+}
+[data-animate-items]:hover .animate-item {
+ display:block;
+ animation:show_item .2s ease forwards;
+ animation-delay:.5s
+}
+  </style>
 </head>
 
 <body id="page-top">
@@ -35,15 +236,10 @@
   <% if request.original_fullpath == '/' %>
   </div>
     <!-- Footer -->
-    <footer class="py-5 bg-dark">
+    <footer class="py-5 bg-gradient-primary">
       <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; НашКомпьютер 2018</p>
       </div>
-      <% if @admin %>
-        <li class="nav-item mx-0 mx-lg-1">
-            <%= link_to("Пользователи", users_path) %>
-        </li>
-      <%end%>
       <!-- /.container -->
     </footer>
     <div class="scroll-to-top d-lg-none position-fixed ">

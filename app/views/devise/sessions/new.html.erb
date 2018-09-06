@@ -1,26 +1,42 @@
-<h2>Log in</h2>
+<style>
+  .vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 100vh; /* These two lines are counted as one :-)       */
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.text_field :email, autofocus: true, autocomplete: "email" %>
+  display: flex;
+  align-items: center;
+}
+</style>
+<div class="vertical-center" cz-shortcut-listen="true">
+<aside class="d-block mx-auto col-sm-4">
+  <h3 class="h3 mb-3 font-weight-normal" >Вход</h3>
+    <div class="card">
+    <article class="card-body">
+<%= form_for(:user, url: session_path(:user)) do |f| %>
+<div class="form-group">
+  <div class="col-md-10">
+    <%= f.text_field :name, placeholder: "Имя для входа/email", autofocus: true, class: "form-control"%>
   </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+  <div class="col-md-10">
+    <%= f.password_field :password, placeholder: "Ваш пароль", autocomplete: "off", id: "InputPassword2", class: "form-control" %>
   </div>
+</div>
 
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
-    </div>
-  <% end -%>
+<div class="row">
+  <label style="margin-left: 29px;">
+  <%= f.check_box :remember_me %>
+  <%= f.label :remember_me, "Запомнить пароль" %>
+  </label>
+</div>
+<div class="col-md-10">
+  <%= f.submit "Войти", class: "btn btn-primary btn-sm float-right" %><%= link_to "\tЗабыли пароль?", new_user_password_path %>
+</div>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
-  </div>
+
 <% end %>
 
+</article>
+</div>
 <%= render "devise/shared/links" %>
+</aside>
+</div>
