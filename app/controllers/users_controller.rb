@@ -57,10 +57,12 @@ end
 
 def create_pre_order
   @order = current_user.order.build
-  @order.taryph_id = params[:taryph_id]
+  @order.taryph_id = params[:taryph_id] if params[:taryph_id]
+  @order.sp_ids = params[:sp_ids] if params[:sp_ids]
   respond_to do |format|
     if @order.save
-      format.json
+      format.html
+      format.json { render json: @order.to_json }
     end
   end
 end

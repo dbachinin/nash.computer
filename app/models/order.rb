@@ -3,5 +3,6 @@ class Order
   include Mongoid::Timestamps
   field :pre, type: Mongoid::Boolean, default: true
   field :taryph_id, type: String
+  field :sp_ids, type: Array, default: []
   belongs_to :user
 end

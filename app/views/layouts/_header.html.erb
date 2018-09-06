@@ -31,10 +31,12 @@
 			<button class="btn btn-outline-info my-2 my-sm-0 mx-auto py-3 px-0 px-lg-3" style="color:#18bc9c;" data-toggle="modal" data-target="#myModal">ВХОД/РЕГИСТРАЦИЯS</button>
 		    </li>
 			<% end %>
+            <%if @user %>
             <% if @user.id.to_s == User.first.id.to_s and @admin %>
                 <li class="nav-item mx-0 mx-lg-1">
                     <%= link_to "", users_path, class: "nav-link fa fa-user-circle fa-fw fa-2x" %>
                 </li>
+            <% end %>
             <% end %>
           </ul>
         </div>

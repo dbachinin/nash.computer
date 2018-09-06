@@ -7,7 +7,7 @@ class HomesController < ApplicationController
     @sps = Sp.all
     @taryphs = Taryph.any_of({sleep: false},{sleep: "0"}).all
     @user = current_user if current_user
-    @sps = Sp.all
+    # @sps = Taryph.all.map { |e| {value: e.id.to_s, label: e.name} }
     if @user != nil
     	@admin = true if @user.is_admin
     end  
