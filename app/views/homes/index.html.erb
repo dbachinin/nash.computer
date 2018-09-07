@@ -298,8 +298,9 @@
     <% if user_signed_in? %>
     <section class="preorder" id="preorder">
       <div class="container">
-        <h2 class="text-center text-uppercase text-secondary mb-0">Оформить предзаказ</h2>
+        <h2 class="text-center text-uppercase text-secondary mb-0">Конструктор предзаказа</h2>
         <hr class="mb-5">
+
         <%= react_component("NOForm", { sps: @sps.map{ |e| {value: e.id.to_s, label: e.name} }.to_json}) %>
 
         <!-- <div class="row">
