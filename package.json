@@ -15,9 +15,8 @@
     "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-datetime": "^2.14.0",
-    "react-dom": "16.4.2",
+    "react-dom": "^16.4.1",
     "react-select": "^2.0.0",
-    "react-tag-input": "^5.1.2",
     "react_ujs": "^2.4.4",
     "tinymce": "^4.8.0",
     "webpack-merge": "^4.1.3"
