@@ -55,6 +55,17 @@ class UsersController < ApplicationController
   end
 end
 
+def create_pre_order_ajax
+  @user = User.find(params[:user_id])
+  @order = @user.order.build
+  @order.sp_ids = params[:sps]
+  respond_to do |format|
+    if @order.save
+      format.js
+    end
+  end
+end
+
 def create_pre_order
   @order = current_user.order.build
   @order.taryph_id = params[:taryph_id] if params[:taryph_id]

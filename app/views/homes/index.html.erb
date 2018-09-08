@@ -1,12 +1,9 @@
-
-          <div id="app"></div>
-          
       <!-- Jumbotron Header -->
           <header class="masthead text-white text-center jumbotron my-4">
             <h1 class="display-3" style="font-family: Montserrat;-webkit-text-stroke: 2px black; font-weight: 700;">Закажите у нас, надёжный и быстрый компьютер!</h1>
         <p class="lead">И усильте его надёжность и безопасность нашими программами поддержки.</p>
 
-        <a href="#" class="btn btn-danger">Смотреть обзор</a>
+        <a href="#" class="btn btn-danger"><b>СМОТРЕТЬ ОБЗОР</b></a>
         <hr>
           <div id="carousel_ind" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -295,13 +292,15 @@
     </section>
     <br />
     
-    <% if user_signed_in? %>
-    <section class="preorder" id="preorder">
-      <div class="container">
-        <h2 class="text-center text-uppercase text-secondary mb-0">Конструктор предзаказа</h2>
-        <hr class="mb-5">
 
-        <%= react_component("NOForm", { sps: @sps.map{ |e| {value: e.id.to_s, label: e.name} }.to_json}) %>
+    <section class="preorder has-floating-items slice slice-xl bg-gradient-primary" id="preorder">
+      
+      <div class="container">
+        <h2 class="text-center text-uppercase mb-0 text-white">Конструктор предзаказа</h2>
+        <h4 class="text-center text-white mt-2">Если Вы не хотите воспользоваться нашими предложениями, то можете собрать себе комплектацию самостоятельно</h4>
+        <hr class="mb-5">
+        <%@user ? user_cur = @user.id.to_s : ''%>
+        <%= react_component("NOForm", { sps: @sps.map{ |e| {value: e.id.to_s, name: e.name, label: "#{e.name}......цена: #{e.price} ₽", price: e.price} }.to_json, user_id: user_cur}) %>
 
         <!-- <div class="row">
           <div class="col-lg-8 mx-auto">
@@ -346,7 +345,30 @@
         </div> -->
       </div>
     </section>
-<% end %>
+        <div class="order" id="order"></div>
+        <% if @user %>
+        <% unless @user.order.empty? %>
+         <section class="myorder mb-4" id="myorder">
+          <div class="container">
+          <h2 class="text-center text-uppercase text-secondary mb-0">Мои заказы</h2>
+          <% @user.order.each do |order| %>
+          <br />
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Заказ: <%= (Digest::SHA256.hexdigest Order.first.id.to_s)[-6..-1].to_i(16)%></div>
+            </div>
+              <div class="card-body">
+                <p>Куплен? <%= raw(!order.pre ? '<h2 style="color:green;">✔</h2>':'<h2 style="color:red;">✘</h2>') %></p>
+                <p>Тариф: <%= Taryph.where(id: order.taryph_id).empty? ? raw("<b class='text-danger'>Собран самостоятельно</b>") : Taryph.find(order.taryph_id).name %></p>
+                <%if order.sp_ids.empty?%><%else%><p>Самостоятельная сборка опций: <%= order.sp_ids.reject{|r|r.empty?}.map{|sps|Sp.find(sps).name}.join(', ') %></p>
+                <%end%>
+            </div>
+          </div>
+          <%end %>
+        </div>
+         </section>
+        <% end %>
+        <% end %>
     <!-- /.container -->
 
 <%# if request.original_fullpath == '/' %>
@@ -393,9 +415,9 @@
       </div>
         <div class="modal-footer bg-noise">
           <%= link_to("Правка", taryph, class: "btn btn-info") if @admin%>
-           <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+           <button type="button" style="background: white" class="btn btn-default" data-dismiss="modal">Закрыть</button>
            <!-- <button type="button" class="btn btn-primary">Оформить предзаказ</button> -->
-           <%= button_to 'Оформить предзаказ', users_create_pre_order_path, params: { taryph_id: taryph._id.to_s },remote: true, class: "btn btn-primary" %>
+           <%= button_to 'ОФОРМИТЬ ПРЕДЗАКАЗ', users_create_pre_order_path, params: { taryph_id: taryph._id.to_s },remote: true, class: "btn btn-warning", style: "background: white" %>
       </div>
     </div>
   </div>

@@ -10,4 +10,5 @@ Rails.application.routes.draw do
   root to: "homes#index"
   post 'users/change_pic'
   post 'users/create_pre_order'
+  post 'users/create_pre_order_ajax', format: "js" #, :defaults => { :format => :json }
 end

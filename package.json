@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "@rails/webpacker": "^3.5.3",
+    "axios": "^0.18.0",
     "babel-preset-react": "^6.24.1",
     "bootstrap": "4",
     "caniuse-lite": "^1.0.30000865",

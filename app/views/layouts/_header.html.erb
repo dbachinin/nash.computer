@@ -16,10 +16,15 @@
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#taryph">ТАРИФЫ</a>
             </li>
-            <% if user_signed_in? %>
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#preorder">ПРЕДЗАКАЗ</a>
             </li>
+            <% if user_signed_in? %>
+            <% unless @user.order.empty? %>
+            <li class="nav-item mx-0 mx-lg-1">
+              <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#myorder">МОИ ЗАКАЗЫ</a>
+            </li>
+            <% end %>
             <% end %>
             <% if user_signed_in? %>
             <li class="nav-item mx-0 mx-lg-1">
