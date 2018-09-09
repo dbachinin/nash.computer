@@ -711,7 +711,7 @@ div:first-child {
  vertical-align:middle
 }
 .floating-tag:nth-child(1) {
- top:240px;
+ top:340px;
  left:-60px;
 
 }
@@ -722,32 +722,32 @@ div:first-child {
  animation-delay:.5s
 }
 .floating-tag:nth-child(3) {
- top:120px;
+ top:220px;
  left:480px;
 
  animation-delay:1s
 }
 .floating-tag:nth-child(4) {
  top:210px;
- left:680px;
+ left:860px;
 
  animation-delay:1.5s
 }
 .floating-tag:nth-child(5) {
  top:120px;
- left:920px;
+ left:320px;
 
  animation-delay:2s
 }
 .floating-tag:nth-child(6) {
- top:200px;
- left:620px;
+ top:360px;
+ left:720px;
 
  animation-delay:2.5s
 }
 .floating-tag:nth-child(7) {
- top:170px;
- left:1010px;
+ top:370px;
+ left:400px;
 
  animation-delay:2.9s
 }
