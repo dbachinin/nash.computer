@@ -1,6 +1,50 @@
 <h1>Editing License</h1>
 
-<%= render 'form', license: @license %>
+<%= form_with(url: {controller: :licenses, action: :update}, method: :put, local: true, remote: false) do |form| %>
+  <% if @license.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@license.errors.count, "error") %> prohibited this license from being saved:</h2>
 
-<%= link_to 'Show', @license %> |
-<%= link_to 'Back', licenses_path %>
+      <ul>
+      <% @license.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name, value: @license.name, id: :license_name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :addres %>
+    <%= form.text_field :addres, value: @license.addres, id: :license_addres %>
+  </div>
+  
+  <div class="field">
+    <%= form.label :count %>
+    <%= form.text_field :license_count, value: @license.license_count, id: :license_count %>
+  </div>
+
+  <div class="field">
+    <%= form.label :license_restrict %>
+    <%= form.text_field :license_restrict, value: @license.license_restrict, id: :license_license_restrict %>
+  </div>
+
+  <div class="field">
+    <%= form.label :term_of_license %>
+    <%= form.date_field :term_of_license,value: @license.term_of_license, id: :license_term_of_license %>
+  </div>
+
+    <div class="field">
+    <%= form.label :description %>
+    <%= form.text_area :description, value: @license.description, id: :description %>
+  </div>
+<% form.hidden_field :id, value: @license.id %>
+<% form.hidden_field :user_id, value: @license.user_id %>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

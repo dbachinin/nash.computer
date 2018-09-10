@@ -1,4 +1,4 @@
-<%= form_with(model: license, local: true) do |form| %>
+<%= form_with(url: {controller: :licenses, action: :create}, local: true, remote: false) do |form| %>
   <% if license.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(license.errors.count, "error") %> prohibited this license from being saved:</h2>
@@ -10,6 +10,36 @@
       </ul>
     </div>
   <% end %>
+
+  <div class="form-group">
+    <%= form.label :Имя %>
+    <%= form.text_field :name, id: :license_name, class: "form-control input-small" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :Адрес %>
+    <%= form.text_field :addres, id: :license_addres, class: "form-control input-small" %>
+  </div>
+  
+  <div class="form-group">
+    <%= form.label :Количество_машин %>
+    <%= form.text_field :license_count, id: :license_count, class: "form-control input-small" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :Разрешенные_лицензии %>
+    <%= form.text_field :license_restrict, id: :license_license_restrict, class: "form-control input-small" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :Срок_лицензии %>
+    <%= form.date_field :term_of_license, id: :license_term_of_license, class: "form-control input-small" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :Примечание %>
+    <%= form.text_area :description, id: :description, class: "form-control input-small" %>
+  </div>
 
   <div class="actions">
     <%= form.submit %>

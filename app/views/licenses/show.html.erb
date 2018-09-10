@@ -1,4 +1,89 @@
-<p id="notice"><%= notice %></p>
+<div class="card">
+    <div class="card-header">
+      <h2>
+        <strong>Имя:</strong>
+        <%= @license.name %>
+      </h2>
+    </div>
+  <div class="card-body">
+    <% if @user.is_admin %>
+    <p>
+      <strong>id лицензии:</strong>
+      <%= @license.id %>
+    </p>
+    <p>
+      <strong>Пароль рута:</strong>
+      <%= @license._id.to_s.to_i(16).to_s(32) %>
+    </p>
+    <% end -%>
+    <p>
+      <strong>Примечание:</strong>
+      <%= @license.description %>
+    </p>
+    <p>
+      <strong>Адрес:</strong>
+      <%= @license.addres %>
+    </p>
 
-<%= link_to 'Edit', edit_license_path(@license) %> |
-<%= link_to 'Back', licenses_path %>
+    <p>
+      <strong>Количество машин:</strong>
+      <%= @license.license_count %>
+    </p>
+
+    <p>
+      <strong>Ограниченые опции:</strong>
+      <%= @license.license_restrict %>
+    </p>
+
+    <p>
+      <strong>Срок лицензии:</strong>
+      <%= @license.term_of_license %>
+    </p>
+
+    <p>
+      <strong>Секретный ключ:</strong>
+      <%= @license.key %>
+    </p>
+
+    <p>
+      <strong>Пользователь:</strong>
+      <%= User.find(@license.user_id).name %>
+    </p>
+  </div>
+</div>
+<div class="table-responsive-sm">
+<table class="table table-hover table-sm">
+  <thead>
+    <tr>
+      <th><b>#</b></th>
+      <th><b>Уникальный id устройства( <%= @license.license_count - @license.licenses.count %> свободно )</b></th>
+      <th><b>Количество разрешенных звонков</b></th>
+      <th><b>IP</b></th>
+      <th><b>Количество установок</b></th>
+      <th><b>Примечание</b></th>
+    </tr>
+  </thead>
+
+  <tbody>
+<%i = 1%>
+      <tr>
+      <% @license.licenses.each do |host| %>
+        <td><b><%= i %><b></td>
+        <td><%= host[0] %></td>
+        <td><%= host[1] %></td>
+        <td><%= host[2] %></td>
+        <td><%= host[3] %></td>
+        <td><%= host[4] %></td>
+        <% i+=1 %>
+      </tr>
+      <%end%>
+  </tbody>
+</table>
+</div>
+<a>Получение файлов ключей</a>
+<hr>
+<div class="row">
+  <strong><%=link_to "Файл лицензии", license_url(:id => @license.id, lic: 1 ), target: '_self', class: "btn btn-secondary m-2"%></strong> 
+  <strong><%=link_to "Ключ лицензии", license_url(:id => @license.id, key: 1), target: '_self', class: "btn btn-secondary m-2"%></strong> 
+  <strong><%=link_to "ISO образ", '#', class: "btn btn-secondary m-2"%></strong>
+</div>
