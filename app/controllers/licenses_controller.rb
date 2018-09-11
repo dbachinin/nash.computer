@@ -129,6 +129,6 @@ class LicensesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def license_params
-      params.permit(:active, :version, :lshw, :name, :addres, :license_count, :license_restrict, :term_of_license, :description, :key)
+      params.permit(:name, :addres, :license_count, :license_restrict, :term_of_license, :description, :key)
     end
 end

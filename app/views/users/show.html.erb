@@ -1,64 +1,79 @@
       <div class="container-fluid">
-      	<div class="row">
-      		<div class="col-sm-4">
-      			<div class="card" >
-      				<br />
-      				<div class='picture' style="margin-top: 10px;">
-      					<%= render partial: "layouts/pic", locals: {id: params[:id]} %>
-      				</div>
-      				<p class=""><%= button_to "Выбор юзерпика", { :action => "change_pic", :id => @user.id }, remote: true, class: "btn btn-secondary d-block mx-auto"%></p>
-      				<hr>
-      				<div class="card-body">
-      					<h3 class="card-title"><b>User:</b><%= @user.name %></h3>
+        <div class="row">
+          <div class="col-sm-4">
+	<div class="card" >
+		<br />
+		<div class='picture' style="margin-top: 10px;">
+			<%= render partial: "layouts/pic", locals: {id: params[:id]} %>
+		</div>
+            <p class=""><%= button_to "Выбор юзерпика", { :action => "change_pic", :id => @user.id }, remote: true, class: "btn btn-secondary d-block mx-auto"%></p>
+            <hr>
+		<div class="card-body">
+			<h3 class="card-title"><b>Пользователь:</b><%= @user.name %></h3>
 
-      					<h4 class=""><%= @user.email %></h4>
-      					<p class="">
-      						<%= simple_form_for(@user) do |f| %>
-      						<div class="input-group">
-      							<%= f.label :submit, "Администратор" if current_user.is_admin %>
-      							<%= f.input_field :is_admin, id: :is_admin1, as: :boolean if current_user.is_admin%>
-      						</div>
-      						<div class="input-group">
-      							<%= f.label :submit, "Имеет лицензию" if current_user.is_admin %>
-      							<%= f.input_field :licensed, id: :licensed1,  as: :boolean if current_user.is_admin%>
-      						</div>
-      						<div class="input-group"><%= f.input_field :name,id: :name1, value: @user.name %> &nbsp;Login name</div>
-      						<br />
-      					</p>
-      				</div>
+			<h4 class=""><%= @user.email %></h4>
+			<p class="">
+				<%= simple_form_for(@user) do |f| %>
+				<div class="input-group">
+					<%= f.label :submit, "Администратор" if current_user.is_admin %>
+					<%= f.input_field :is_admin, as: :boolean if current_user.is_admin%>
+				</div>
+				<div class="input-group">
+					<%= f.label :submit, "Имеет лицензию" if current_user.is_admin %>
+					<%= f.input_field :licensed, as: :boolean if current_user.is_admin%>
+                </div>
+				<div class="input-group"><%= f.input_field :name, value: @user.name %> &nbsp;Имя</div>
+				<br />
+			</p>
+		</div>
 
-      				<div class="card-footer">
-      					<%= f.button :submit, "Обновить", class: "d-block mx-auto btn btn-primary" %>
-      					<% end %>
-      					<br />
-      					<% if current_user.id == @user.id %>
-      					<hr>
-      					<%= button_to "Изменить пароль", edit_user_registration_path, method: :get, class: "d-block mx-auto btn btn-primary" %>
-      					<% end -%>
-      				</div>
-      			</div>
-      		</div>
+		<div class="card-footer">
+			<%= f.button :submit, "Обновить", class: "d-block mx-auto btn btn-primary" %>
+			<% end %>
+			<br />
+			<% if current_user.id == @user.id %>
+			<hr>
+			<%= button_to "Изменить пароль", edit_user_registration_path, method: :get, class: "d-block mx-auto btn btn-primary" %>
+			<% end -%>
+		</div>
+	</div>
+</div>
 
-      		<div class="col-sm-6">
+<div class="col-sm-6">
+<%= render 'licenses/index', licenses: @user.license %>
+</div>
+<br />
 
-      	    </div>
+<script type="text/javascript">
+	  var date = new Date();
+	  var today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+	  (function() {
+	    jQuery(document).on('turbolinks:load', function() {
+	      return $('#datepicker').datepicker({
+	        format: 'yyyy-mm-dd',
+	        weekStart: 1,
+	        todayBtn: "linked",
+	        clearBtn: true,
+	        autoclose: true,
+	        daysOfWeekHighlighted: '0,6',
+	        toggleActive: true
+	    });
+	  });
+	}).call(this);
+</script>
 
-      		<br />
-                  <div class="col-sm-6">
-                  <%= render 'licenses/index', licenses: @user.license %>
-                  </div>
-      	</div>
-      	<hr>
-      	<br />
-      	<ul class="breadcrumb" >
-      		<li class="breadcrumb-item">
-      			<%= link_to "Root", root_path %>
-      		</li>
-      		<li class="breadcrumb-item">
-      			<%= link_to "Users", users_path %>
-      		</li>
-      		<li class="breadcrumb-item">
-      			<a href="#"><%= @user.name %></a>
-      		</li>
-      	</ul>
-      </div>
+</div>
+<hr>
+<br />
+<ul class="breadcrumb" >
+  <li class="breadcrumb-item">
+    <%= link_to "Root", root_path %>
+  </li>
+  <li class="breadcrumb-item">
+    <%= link_to "Users", users_path %>
+  </li>
+  <li class="breadcrumb-item">
+    <a href="#"><%= @user.name %></a>
+  </li>
+</ul>
+</div>
