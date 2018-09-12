@@ -252,10 +252,11 @@
       <br />
       <section class="taryph" id="taryph">
         <div class="container">
-      <h2 class="text-center text-uppercase text-secondary mb-0">Тарифы</h2>
+      <h2 class="text-center text-uppercase text-secondary mb-0">Тарифы и опции сборки ОС</h2>
       <hr class="mb-5 ">
 
       <!-- Page Features -->
+      <% if Geocoder.search(request.remote_ip).first.city == "Rostov-on-Don" %>
       <div class="row text-center">
         <% @taryphs.each do |taryph| %>
         <div data-animate-hover="1" class="col-lg-3 col-md-6 mb-4" data-toggle="hidden">
@@ -281,6 +282,7 @@
 
         <% end %>
       </div>
+      <% end %>
       <% if @admin %>
       <div class="row">
       <%= link_to("Тарифы", taryphs_path , class: "btn btn-primary mr-2") %>
@@ -300,7 +302,9 @@
         <h4 class="text-center text-white mt-2">Если Вы не хотите воспользоваться нашими предложениями, то можете собрать себе комплектацию самостоятельно</h4>
         <hr class="mb-5">
         <%@user ? user_cur = @user.id.to_s : ''%>
+        <% if Geocoder.search(request.remote_ip).first.city == "Rostov-on-Don" %>
         <%= react_component("NOForm", { sps: @sps.map{ |e| {value: e.id.to_s, name: e.name, label: "#{e.name}......цена: #{e.price} ₽", price: e.price} }.to_json, user_id: user_cur}) %>
+        <% end %>
       </div>
     </section>
         
