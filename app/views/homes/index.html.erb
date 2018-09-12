@@ -260,7 +260,7 @@
         <% @taryphs.each do |taryph| %>
         <div data-animate-hover="1" class="col-lg-3 col-md-6 mb-4" data-toggle="hidden">
           <div class="card shadow animate-this">
-            <div class="card-hader text-white" style="background: black;font-size: 25px;"><b><%= taryph.price %> ₽</b></div>
+            <div class="card-hader text-white" style="background: black;font-size: 25px;"><b><%= Sp.find(taryph.options).map{|i|i.price.to_i}.inject{|s, x| s + x} + taryph.price.to_i %> ₽</b></div>
             <img class="card-img-top" src="https://placehold.it/500x325" alt="">
             <div class="card-body">
               <h4 class="card-title"><%= taryph.name %></h4>
