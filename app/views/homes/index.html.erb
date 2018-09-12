@@ -256,12 +256,35 @@
       <hr class="mb-5 ">
 
       <!-- Page Features -->
-      <% if Geocoder.search(request.remote_ip).first.city == "Rostov-on-Don" %>
       <div class="row text-center">
+        <% @os_builds.each do |builds| %>
+        <div data-animate-hover="1" class="col-lg-3 col-md-6 mb-4" data-toggle="hidden">
+          <div class="card shadow animate-this">
+            <% price = OsOption.find(builds.options.reject{|i|i.empty?}).map{|i|i.price.to_i}.inject{|s, x| s + x} + builds.price.to_i %>
+            <div class="card-hader text-white" style="<%= price == 0 ? "background: #18bc9c;font-size: 25px;" : "background: black;font-size: 25px;"%>"><b><%= price == 0 ? 'БЕСПЛАТНО' : "#{price} ₽" %></b></div>
+            <img class="card-img-top" src="https://placehold.it/500x325" alt="">
+            <div class="card-body">
+              <h4 class="card-title"><%= builds.name %></h4>
+              <hr>
+              <p class="card-text"><%= raw builds.description %></p>
+            </div>
+            <div class="card-footer">
+              <% if user_signed_in? %>
+              <button class="btn btn-primary my-2 my-sm-0 mx-auto py-3 px-0 px-lg-3" data-toggle="modal" data-target="#modal-<%=builds._id.to_s%>">Узнать больше!</button>
+              <% else %>
+              <button class="btn btn-primary my-2 my-sm-0 mx-auto py-3 px-0 px-lg-3" style="color:#18bc9c;" data-toggle="modal" data-target="#myModal">Вход/Регистрация</button>
+              <p><small>(Просто <b>зарегистрируйтесь</b> или войдите, для просмотра подробностей.)</small></p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+        <% end %>
+        <% if Geocoder.search(request.remote_ip).first.city == "Rostov-on-Don" %>
         <% @taryphs.each do |taryph| %>
         <div data-animate-hover="1" class="col-lg-3 col-md-6 mb-4" data-toggle="hidden">
           <div class="card shadow animate-this">
-            <div class="card-hader text-white" style="background: black;font-size: 25px;"><b><%= Sp.find(taryph.options).map{|i|i.price.to_i}.inject{|s, x| s + x} + taryph.price.to_i %> ₽</b></div>
+            <% price = Sp.find(taryph.options).map{|i|i.price.to_i}.inject{|s, x| s + x} + taryph.price.to_i%>
+            <div class="card-hader text-white" style="background: black;font-size: 25px;"><b><%= price == 0 ? 'БЕСПЛАТНО' : "#{price} ₽" %></b></div>
             <img class="card-img-top" src="https://placehold.it/500x325" alt="">
             <div class="card-body">
               <h4 class="card-title"><%= taryph.name %></h4>
@@ -278,15 +301,17 @@
             </div>
           </div>
         </div>
-
-
         <% end %>
-      </div>
       <% end %>
+      </div>
+
+
       <% if @admin %>
       <div class="row">
       <%= link_to("Тарифы", taryphs_path , class: "btn btn-primary mr-2") %>
       <%= link_to("Тарифные опции", sps_path , class: "btn btn-primary") %>
+      <%= link_to("Сборки ОС", os_builds_path , class: "btn btn-primary") %>
+      <%= link_to("Опции ОС", os_options_path , class: "btn btn-primary") %>
       </div>
       <% end %>
       </div>
@@ -343,8 +368,18 @@
     <!-- /.container -->
 
 <%# if request.original_fullpath == '/' %>
+<% @os_builds.each do |build| %>
+    <div class="modal fade" id="modal-<%=build._id.to_s%>" tabindex="-1" role="dialog" aria-labelledby="<%= build.id %>ModalLabel" aria-hidden="true">
+      <div class="modal-content">
+      
+      <%= react_component("OSForm", { id: build.id.to_s, os_build: build.to_json, options: @options}) %>
+      <%# react_component("OSForm", {os_build: {id: build.id.to_s, name: build.name, sleep: build.sleep, options: build.options.reject{|i|i.empty?}, description: build.description, price: build.price }}.to_json ) %>
+    </div>
+    </div>
+<% end %>
+<% if Geocoder.search(request.remote_ip).first.city == "Rostov-on-Don" %>
 <% @taryphs.each do |taryph| %>
-    <div class="modal fade" id="modal-<%=taryph._id.to_s%>" tabindex="-1" role="dialog" aria-labelledby="<%= taryph.id %>ModalLabel" aria-hidden="true">
+<div class="modal fade" id="modal-<%=taryph._id.to_s%>" tabindex="-1" role="dialog" aria-labelledby="<%= taryph.id %>ModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document" style="max-width: 750px;">
     <div class="modal-content">
       <div class="modal-header">
@@ -394,4 +429,4 @@
   </div>
 </div>
      <% end %>
-<%# end %>
+<% end %>

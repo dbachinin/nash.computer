@@ -1,0 +1,2 @@
+module OsBuildsHelper
+end

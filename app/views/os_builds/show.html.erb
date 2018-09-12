@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @os_build.name %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @os_build.price %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @os_build.description %>
+</p>
+
+<p>
+  <strong>Sleep:</strong>
+  <%= @os_build.sleep %>
+</p>
+
+<p>
+  <strong>Option:</strong>
+  <%= @os_build.options %>
+</p>
+
+<%= link_to 'Edit', edit_os_build_path(@os_build) %> |
+<%= link_to 'Back', os_builds_path %>|
+<%= link_to("Опции ОС", os_options_path , class: "btn btn-primary") %>

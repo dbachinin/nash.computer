@@ -1,0 +1,21 @@
+
+<%= simple_form_for(@os_build) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :price %>
+    <%= f.input :description, as: :text %>
+    <%= f.label "Заморожен" %>
+    <%= f.check_box :sleep %>
+    <%= f.select :options,
+  @options.map{|i| [i.name, i._id]},
+  { :prompt => "Выбор опций"},
+  { :multiple => true, :size => 12, :class => "form-control" } %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

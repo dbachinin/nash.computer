@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :os_options
+  resources :os_builds
   resources :taryphs
   get 'download' => 'download#download' 
   devise_for :users, :path => 'users'
