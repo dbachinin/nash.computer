@@ -1,1 +1,42 @@
-<p>llll</p>
+<% if @order.id == Order.first.id %>
+<section class="myorder mb-4" id="myorder">
+  <div class="container">
+    <h2 class="text-center text-uppercase text-secondary mb-0">Мои заказы</h2>
+    <div class="order" id="order"></div>
+
+    <% @user.order.each do |order| %>
+    <br />
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Заказ: <%= (Digest::SHA256.hexdigest order.id.to_s)[-6..-1].to_i(16)%></div>
+      </div>
+      <div class="card-body">
+        <p>Куплен? <%= raw(!order.pre ? '<a style="color:green;">✔</a>':'<a style="color:red;">✘</a>') %></p>
+        <p>Тариф: <%= Taryph.where(id: order.taryph_id).empty? ? raw("<b class='text-danger'>Собран самостоятельно</b>") : Taryph.find(order.taryph_id).name %></p>
+        <%if order.sp_ids.empty?%><%else%><p>Самостоятельная сборка опций: <%= order.sp_ids.reject{|r|r.empty?}.map{|sps|Sp.find(sps).name}.join(', ') %></p>
+        <%end%>
+        <p><b>Лицензионный ключ: </b><%= order.license.key %></p>
+        <% if @admin %>
+        <strong><%=link_to "Файл лицензии", homes_index_url(:id => order.license.id, lic: 1 ), method: :get, target: '_self', class: "btn btn-secondary m-2"%></strong> 
+        <% end %>
+      </div>
+    </div>
+    <%end %>
+  </div>
+</section>
+<% else %>
+<br />
+<div class="card">
+  <div class="card-header">
+    <div class="card-title">Заказ: <%= (Digest::SHA256.hexdigest @order.id.to_s)[-6..-1].to_i(16)%></div>
+  </div>
+  <div class="card-body">
+    <p>Куплен? <%= raw(!@order.pre ? '<a style="color:green;">✔</a>':'<a style="color:red;">✘</a>') %></p>
+    <p>Тариф: <%= Taryph.where(id: @order.taryph_id).empty? ? raw("<b class='text-danger'>Собран самостоятельно</b>") : Taryph.find(@order.taryph_id).name %></p>
+    <%if @order.sp_ids.empty?%><%else%><p>Самостоятельная сборка опций: <%= @order.sp_ids.reject{|r|r.empty?}.map{|sps|Sp.find(sps).name}.join(', ') %></p>
+    <%end%>
+    <p><b>Лицензионный ключ: </b><%= @order.license.key %></p>
+    <% if @admin %>
+    <strong><%=link_to "Файл лицензии", homes_index_url(:id => @order.license.id, lic: 1 ), method: :get, target: '_self', class: "btn btn-secondary m-2"%></strong> 
+    <% end %>
+<% end %>

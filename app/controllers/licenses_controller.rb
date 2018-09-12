@@ -18,7 +18,7 @@ class LicensesController < ApplicationController
   end
   def stub
     @user = current_user
-    @licenses = @user.license
+    @licenses = @user.order.map{|ord|ord.license}
   end
   # GET /licenses/1
   # GET /licenses/1.json
@@ -30,25 +30,32 @@ class LicensesController < ApplicationController
     end
     if @user.is_admin or @user.licensed
       if params[:lic] 
-        file = "#{Rails.root}/tmp/license_#{id.reverse}.lic"
-        File.open(file, 'wb' ){|f| f.write(@license.licensefile.data)}
-          send_file(file, filename: "license.lic", type: "application/octet-stream")
+        # file = "#{Rails.root}/tmp/license_#{id.reverse}.lic"
+        # File.open(file, 'wb' ){|f| f.write(@license.licensefile.data)}
+        #   send_file(file, filename: "license.lic", type: "application/octet-stream")
+          send_data @license.licensefile.data, filename: "license.lic", type: "application/octet-stream"
       elsif params[:key]
         file = "#{Rails.root}/tmp/license_#{id.reverse}.key"
         %x( encode #{@license.key} #{file} )
-          send_file("#{Rails.root}/tmp/license_#{id.reverse}.key", filename: "license.key", type: "application/octet-stream")
+        key = File.read(file)
+        File.delete(file)
+        send_data key, filename: "license.key", type: "application/octet-stream"
+          # send_file("#{Rails.root}/tmp/license_#{id.reverse}.key", filename: "license.key", type: "application/octet-stream")
       end
     else
-      @license = @user.license.find(params[:name]) if @user.license.where(name: params[:name]).exists?
+      @license = @user.order.select{|ord|ord.license.find(params[:name])} if @user.order.select{|ord|ord.license.where(name: params[:name]).exists?}
       
       if params[:lic] 
-        file = "#{Rails.root}/tmp/license_#{id.reverse}.lic"
-        File.open(file, 'wb' ){|f| f.write(@license.licensefile.data)}
-          send_file(file, filename: "license.lic", type: "application/octet-stream")
+        # file = "#{Rails.root}/tmp/license_#{id.reverse}.lic"
+        # File.open(file, 'wb' ){|f| f.write(@license.licensefile.data)}
+        #   send_file(file, filename: "license.lic", type: "application/octet-stream")
+          send_data @license.licensefile.data, filename: "license.lic", type: "application/octet-stream"
       elsif params[:key]
         file = "#{Rails.root}/tmp/license_#{id.reverse}.key"
         %x( encode #{@license.key} #{file} )
-          send_file("#{Rails.root}/tmp/license_#{id.reverse}.key", filename: "license.key", type: "application/octet-stream")
+        key = File.read(file)
+        File.delete(file)
+        send_data key, filename: "license.key", type: "application/octet-stream"
       end
     end
 

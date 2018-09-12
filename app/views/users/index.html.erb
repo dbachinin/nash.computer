@@ -19,8 +19,8 @@
         <% if current_user.is_admin or user.id == current_user.id %>
         <td><%= render partial: "layouts/pic", locals: {id: user.id} %></td>
         <td ><%= user.name %></td>
-        <td><%= user.is_admin %></td>
-        <td><%= user.licensed %></td>
+        <td><%= raw(user.is_admin ? '<h5 style="color:green;">✔</h5>':'<h5 style="color:red;">✘</h5>')%></td>
+        <td><%= raw(user.licensed ? '<h5 style="color:green;">✔</h5>':'<h5 style="color:red;">✘</h5>')%></td>
         <td><%= user.email %></td>
         <% current_user.is_admin ? user = user : user = current_user %>
         <td><%= button_to 'Просмотр/Редактирование', user_path(user), method: :get,class: "btn btn-secondary" %></td>

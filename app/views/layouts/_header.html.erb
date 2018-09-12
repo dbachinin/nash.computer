@@ -20,7 +20,9 @@
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#preorder">ПРЕДЗАКАЗ</a>
             </li>
             <% if user_signed_in? %>
-            <% unless @user.order.empty? %>
+            <% if @user.order.empty? %>
+            <div class="nvitem"></div>
+            <% else %>
             <li class="nav-item mx-0 mx-lg-1">
               <a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" href="#myorder">МОИ ЗАКАЗЫ</a>
             </li>
@@ -30,11 +32,9 @@
             <li class="nav-item mx-0 mx-lg-1">
 			<a><%= button_to "ВЫХОД", destroy_session_path(:user), method: :delete, class: 'btn btn-outline-info btn-sm my-2 my-sm-0 mx-auto py-3 px-0 px-lg-3', style: "color:#18bc9c;border-radius: 40px;"  %></a>
 			</li>
-			<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" style="color:#18bc9c;" href="/users/<%=@user._id.to_s%>"><%= ":#{@user.name.upcase}" %></a>
+			<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded js-scroll-trigger" style="color:#18bc9c;" href="/users/<%=@user._id.to_s%>"><%= ":#{@user.name.upcase}" %></a></li>
 			<% else %>
-			<li class="nav-item mx-0 mx-lg-1">
-			<button class="btn btn-outline-info my-2 my-sm-0 mx-auto py-3 px-0 px-lg-3" style="color:#18bc9c;" data-toggle="modal" data-target="#myModal">ВХОД/РЕГИСТРАЦИЯS</button>
-		    </li>
+			<li class="nav-item mx-0 mx-lg-1"><button class="btn btn-outline-info btn-sm my-2 my-sm-0 mx-auto py-3 px-0 px-lg-3" style="color:#18bc9c;border-radius: 40px;" data-toggle="modal" data-target="#myModal">ВХОД/РЕГИСТРАЦИЯ</button></li>
 			<% end %>
             <%if @user %>
             <% if @user.id.to_s == User.first.id.to_s and @admin %>

@@ -225,15 +225,14 @@ p {
 </head>
 
 <body id="page-top">
-  <% if request.original_fullpath == '/' %>
+  <% if controller_name == 'homes' %>
     <%= render 'layouts/header'%>
-  <% else %>
+  <% end %>
     <% flash.each do |name, msg| %>
-       <%= content_tag(:li, msg, class: "nav-item alert alert-info") %>
-    <% end %>
+       <%= content_tag(:li, msg, class: "alert alert-info") %>
     <% end %>
   <%= yield %>
-  <% if request.original_fullpath == '/' %>
+  <% if controller_name == 'homes' %>
   </div>
     <!-- Footer -->
     <footer class="py-5 bg-gradient-primary">
@@ -251,11 +250,22 @@ p {
     <% end %>
 </body>
 <script type="text/javascript">
-jQuery(".alert" ).fadeOut(7000);
+jQuery(".alert" ).fadeOut(10000);
 // $('.carousel').carousel({
 //   interval: 10000
 // })
-
+function AdOrder(taryph_id){
+jQuery.ajax({
+      url : "/users/create_pre_order_ajax",
+      type : "post",
+      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', jQuery('meta[name="csrf-token"]').attr('content'))},
+      data : { taryph_id: taryph_id },
+      dataType: 'script',
+      success: function (result) {
+        eval(result)
+      }
+    });
+}
 !function(o)
 {
   "use strict";

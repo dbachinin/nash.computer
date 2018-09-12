@@ -16,9 +16,9 @@ class License
   field :version, type: String
   field :lshw, type: String
   # before_save :create_host_licenses
-  # after_save :gen_licensefile
+  after_create :gen_licensefile
   # after_create :useradd
-  belongs_to :user
+  belongs_to :order
   validates :name, uniqueness: true, format: { with: /[a-zA-Z0-9а-яА-Я_\.]/ }, presence: true
   validates :license_count, format: { with: /[0-9]/ }, presence: true
   protected
@@ -31,6 +31,8 @@ class License
   
   def gen_licensefile
     self.key = create_license(self._id.to_s)
+    p self
+    self.save
   end
   # def useradd
   # end

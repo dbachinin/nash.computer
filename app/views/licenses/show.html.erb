@@ -47,7 +47,7 @@
 
     <p>
       <strong>Пользователь:</strong>
-      <%= User.find(@license.user_id).name %>
+      <%= @license.order.user.name %>
     </p>
   </div>
 </div>

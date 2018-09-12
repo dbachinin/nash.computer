@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, :check_admin
+  # include LicensesHelper
+  #respond_to :json
+  respond_to :html, :js, :json
 
-      respond_to :json
   include AvatarHelper
   def index
     if current_user.is_admin
@@ -56,27 +58,34 @@ class UsersController < ApplicationController
 end
 
 def create_pre_order_ajax
-  @user = User.find(params[:user_id])
+  @user = current_user
   @order = @user.order.build
-  @order.sp_ids = params[:sps]
+  @order.taryph_id = params[:taryph_id] if params[:taryph_id]
+  @order.sp_ids = params[:sps] if params[:sps]
+  lic = @order.build_license
+  lic.license_count = 1
+  lic.name = @user.id.to_s + @order.id.to_s + @order.sp_ids.join||'' + @order.taryph_id||''
   respond_to do |format|
-    if @order.save
+    if @order.save and lic.save
       format.js
+    else
+      redirect_to root_path, notice: 'Что-то пошло не так, попробуйте ещё раз.'
     end
   end
 end
 
-def create_pre_order
-  @order = current_user.order.build
-  @order.taryph_id = params[:taryph_id] if params[:taryph_id]
-  @order.sp_ids = params[:sp_ids] if params[:sp_ids]
-  respond_to do |format|
-    if @order.save
-      format.html
-      format.json { render json: @order.to_json }
-    end
-  end
-end
+# def create_pre_order
+#   @order = current_user.order.build
+#   @order.taryph_id = params[:taryph_id] if params[:taryph_id]
+#   @order.sp_ids = params[:sp_ids] if params[:sp_ids]
+#   lic = @order.build_license
+#   lic.license_count = 1
+#   lic.name = current_user.id.to_s + @order.id.to_s + @order.taryph_id
+#   unless @order.save and lic.save
+#     redirect_to root_path, notice: 'Что-то пошло не так, попробуйте ещё раз.'
+#   end
+# end
+
   def destroy
     @user = User.find(params[:id])
     if current_user.id == @user.id or check_admin
