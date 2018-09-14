@@ -61,7 +61,9 @@ def create_pre_order_ajax
   @user = current_user
   @order = @user.order.build
   @order.taryph_id = params[:taryph_id] if params[:taryph_id]
+  @order.os_build = params[:os_build] if params[:os_build]
   @order.sp_ids = params[:sps] if params[:sps]
+  @order.os_options = params[:os_options] if params[:os_options]
   lic = @order.build_license
   lic.license_count = 1
   lic.name = @user.id.to_s + @order.id.to_s + @order.sp_ids.join||'' + @order.taryph_id||''

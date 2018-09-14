@@ -27,9 +27,8 @@ class NOForm extends React.Component {
       this.setState({ value: null });
    }
    handleChange(newValue: any) {
-    const value = newValue === null ? '' : newValue
+    const value = newValue === null ? '' : newValue.value
     this.setState({ value });
-    console.log(newValue)
     if (newValue.length < 1) {
       this.setState({price: ""})
     } else {

@@ -279,11 +279,11 @@
           </div>
         </div>
         <% end %>
-        <% if Geocoder.search(request.remote_ip).first.city == "Rostov-on-Don" %>
+        <% if Geocoder.search(request.remote_ip).first.city == "Rostov-on-Don" or request.remote_ip == '127.0.0.1' %>
         <% @taryphs.each do |taryph| %>
         <div data-animate-hover="1" class="col-lg-3 col-md-6 mb-4" data-toggle="hidden">
           <div class="card shadow animate-this">
-            <% price = Sp.find(taryph.options).map{|i|i.price.to_i}.inject{|s, x| s + x} + taryph.price.to_i%>
+            <% price = Sp.find(taryph.options.reject{|i|i.empty?}).map{|i|i.price.to_i}.inject{|s, x| s + x} + taryph.price.to_i%>
             <div class="card-hader text-white" style="background: black;font-size: 25px;"><b><%= price == 0 ? 'БЕСПЛАТНО' : "#{price} ₽" %></b></div>
             <img class="card-img-top" src="https://placehold.it/500x325" alt="">
             <div class="card-body">
@@ -327,7 +327,7 @@
         <h4 class="text-center text-white mt-2">Если Вы не хотите воспользоваться нашими предложениями, то можете собрать себе комплектацию самостоятельно</h4>
         <hr class="mb-5">
         <%@user ? user_cur = @user.id.to_s : ''%>
-        <% if Geocoder.search(request.remote_ip).first.city == "Rostov-on-Don" %>
+        <% if Geocoder.search(request.remote_ip).first.city == "Rostov-on-Don" or request.remote_ip == '127.0.0.1'%>
         <%= react_component("NOForm", { sps: @sps.map{ |e| {value: e.id.to_s, name: e.name, label: "#{e.name}......цена: #{e.price} ₽", price: e.price} }.to_json, user_id: user_cur}) %>
         <% end %>
       </div>
@@ -366,18 +366,13 @@
         <% end %>
         <% end %>
     <!-- /.container -->
-
 <%# if request.original_fullpath == '/' %>
 <% @os_builds.each do |build| %>
-    <div class="modal fade" id="modal-<%=build._id.to_s%>" tabindex="-1" role="dialog" aria-labelledby="<%= build.id %>ModalLabel" aria-hidden="true">
-      <div class="modal-content">
       
-      <%= react_component("OSForm", { id: build.id.to_s, os_build: build.to_json, options: @options}) %>
+      <%= react_component("OSForm", { id: build.id.to_s, os_build: build.to_json, options: @os_options.to_json, user_id: user_cur}) %>
       <%# react_component("OSForm", {os_build: {id: build.id.to_s, name: build.name, sleep: build.sleep, options: build.options.reject{|i|i.empty?}, description: build.description, price: build.price }}.to_json ) %>
-    </div>
-    </div>
 <% end %>
-<% if Geocoder.search(request.remote_ip).first.city == "Rostov-on-Don" %>
+<% if Geocoder.search(request.remote_ip).first.city == "Rostov-on-Don" or request.remote_ip == '127.0.0.1'%>
 <% @taryphs.each do |taryph| %>
 <div class="modal fade" id="modal-<%=taryph._id.to_s%>" tabindex="-1" role="dialog" aria-labelledby="<%= taryph.id %>ModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document" style="max-width: 750px;">
