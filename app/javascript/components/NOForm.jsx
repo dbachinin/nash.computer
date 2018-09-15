@@ -3,6 +3,19 @@ import PropTypes from "prop-types"
 import Select from 'react-select';
 import axios from 'axios';
 import '../src/NOForm.css'
+import CoresCPU from './CoresCPU.jsx'
+const styles = {
+  root: {
+    width: 300,
+    primary: 'white',
+    color: 'white',
+    secondary: 'white',
+    background: 'white',
+    track: { background: 'red' },
+  },
+  
+};
+
 class NOForm extends React.Component {
     constructor(props) {
     super(props);
@@ -44,21 +57,14 @@ class NOForm extends React.Component {
     eval(this.order.data)
   }
   render () {
-    if (this.props.user_id) {var button = <input className="btn btn-warning mt-4" type="submit" value="ОФОРМИТЬ ПРЕДЗАКАЗ" />} else { var button = <button class="btn btn-warning mt-4" data-toggle="modal" data-target="#myModal">ВХОД/РЕГИСТРАЦИЯ</button>}
+    if (this.props.user_id) {var button = <input className="btn btn-warning mt-4" type="submit" value="ПЕРЕЙТИ К ПОКУПКЕ" />} else { var button = <button className="btn btn-warning mt-4" data-toggle="modal" data-target="#myModal">ВХОД/РЕГИСТРАЦИЯ</button>}
     return (
       <React.Fragment>
-      <div className="container floating-items">
-      <div className="tagcloud06">
-        <ul>
-        {this.sps.map((val,index) => 
-        <div className="floating-tag" key={index}><span><li><a className="text-white">{val.name}<span className="bg-dark">{val.price} ₽</span></a></li></span>
-          
-        </div>
-        )}
-        </ul>
-        </div></div>
-      <h5 className="text-white">ЦЕНА КОМПЛЕКТА: <b>{this.state.price}</b> ₽</h5>
+
+
       <form onSubmit={this.handleSubmit}>
+      <CoresCPU />
+      <h5 className="text-white">ЦЕНА КОМПЛЕКТА: <b>{this.state.price}</b> ₽</h5>
         <Select
           closeMenuOnSelect={false}
           name="sps[]"
@@ -140,3 +146,14 @@ export default NOForm
 //   );
 // };
 // export default NOForm
+      // <div className="container floating-items">
+      // <div className="tagcloud06">
+      //   <ul>
+      //   {this.sps.map((val,index) => 
+      //   <div className="floating-tag" key={index}><span><li><a className="text-white">{val.name}<span className="bg-dark">{val.price} ₽</span></a></li></span>
+          
+      //   </div>
+      //   )}
+      //   </ul>
+      //   </div>
+      //   </div>

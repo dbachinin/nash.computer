@@ -3,6 +3,7 @@ import PropTypes from "prop-types"
 import Select from 'react-select';
 import '../src/NOForm.css'
 import axios from 'axios';
+import CoresCPU from './CoresCPU.jsx'
 class OSForm extends React.Component {
     constructor(props) {
     super(props);
@@ -39,9 +40,10 @@ class OSForm extends React.Component {
     eval(this.order.data)
   }
   render () {
-    if (this.props.user_id) {var button = <input className="btn btn-warning mt-4" type="submit" value="ОФОРМИТЬ ПРЕДЗАКАЗ" />} else { var button = <button className="btn btn-warning mt-4" data-toggle="modal" data-target="#myModal">ВХОД/РЕГИСТРАЦИЯ</button>}
+    const modId = "#modal-" + this.props.id;
+    if (this.props.user_id) {var button = <input className="btn btn-warning mt-4 text-uppercase" type="submit" value={"СКАЧАТЬ " + this.build.name} onClick={() => jQuery(modId).modal("hide")} />} else { var button = <button className="btn btn-warning mt-4" data-toggle="modal" data-target="#myModal">ВХОД/РЕГИСТРАЦИЯ</button>}
     var price = "В цену " + (this.build.options.filter(function(item){return item}).map((op,i) => parseInt(this.options.find(opt => (opt._id.$oid === op)).price)).reduce(function(a, b) { return a + b }) + Number(this.build.price)).toString() + " ₽"
-    if (price) {var price = 'В сборку'} else {var price = price}
+    if (price) {var price = 'В неё'} else {var price = price}
     
     var options = this.build.options.filter(function(item){return item}).map((op,i) => this.options.map((opt) => opt._id.$oid === op ? null : opt._id.$oid).filter(function(e){return e})).reduce((acc, val) => acc.concat(val), [])
     var norOptions = options.filter((a, i, aa) => aa.indexOf(a) === i && aa.lastIndexOf(a) !== i).map((op) => this.options.find(opt => (opt._id.$oid === op)))
@@ -52,7 +54,7 @@ class OSForm extends React.Component {
   <div className="modal-dialog" role="document" style={{'maxWidth': '750px'}}>
     <div className="modal-content">
       <div className="modal-header">
-        <h3 className="text-secondary text-uppercase mb-0 modal-title" id={this.props.id + "ModalLabel"} >{"Сборка:" + this.build.name}</h3>
+        <h3 className="text-secondary text-uppercase mb-0 modal-title" id={this.props.id + "ModalLabel"} >{"Сборка: " + this.build.name}</h3>
         <button type="button" className="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -91,11 +93,12 @@ class OSForm extends React.Component {
           </div>
       </div>
 <div className="bg-gradient-primary">
-<h4 className="text-white ml-4 mt-2">ДОБАВЛЕНИЕ КОМПОНЕНТОВ</h4>
+<h4 className="text-white ml-4 mt-2">ДОПОЛНИТЬ СБОРКУ</h4>
+<hr style={{backgroundColor: '#ffffff'}} />
  <div className='container'>
  <br></br>
-
  <form onSubmit={this.handleSubmit}>
+  <CoresCPU />
         <Select
           closeMenuOnSelect={false}
           name="os_options[]"
@@ -113,10 +116,9 @@ class OSForm extends React.Component {
         </div>
 
         <div className="modal-footer bg-noise">
+           <h5 className="col">ЦЕНА СБОРКИ: <b>{this.state.price}</b> ₽</h5>
            <button type="button" style={{'background': 'white'}} className="btn btn-default" data-dismiss="modal">Закрыть</button>
-
-      
-      </div>
+        </div>
     </div>
   </div>
 </div>

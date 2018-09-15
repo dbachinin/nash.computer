@@ -252,11 +252,14 @@
       <br />
       <section class="taryph" id="taryph">
         <div class="container">
-      <h2 class="text-center text-uppercase text-secondary mb-0">Тарифы и опции сборки ОС</h2>
+      <h2 class="text-center text-uppercase text-secondary mb-0">ОПЦИИ ОПЕРАЦИОННЫХ СИСТЕМ И ПО</h2>
       <hr class="mb-5 ">
 
       <!-- Page Features -->
+      <h4>ОПЕРАЦИОННЫЕ СИСТЕМЫ</h4>
+      <hr />
       <div class="row text-center">
+
         <% @os_builds.each do |builds| %>
         <div data-animate-hover="1" class="col-lg-3 col-md-6 mb-4" data-toggle="hidden">
           <div class="card shadow animate-this">
@@ -279,7 +282,11 @@
           </div>
         </div>
         <% end %>
+        </div>
         <% if Geocoder.search(request.remote_ip).first.city == "Rostov-on-Don" or request.remote_ip == '127.0.0.1' %>
+        <h5>КОМПЛЕКТЫ ПО</h5>
+        <hr />
+        <div class="row text-center">
         <% @taryphs.each do |taryph| %>
         <div data-animate-hover="1" class="col-lg-3 col-md-6 mb-4" data-toggle="hidden">
           <div class="card shadow animate-this">
@@ -323,12 +330,13 @@
     <section class="preorder has-floating-items slice slice-xl bg-gradient-primary" id="preorder">
       
       <div class="container">
-        <h2 class="text-center text-uppercase mb-0 text-white">Конструктор предзаказа</h2>
+        <h2 class="text-center text-uppercase mb-0 text-white">Конструктор комплекта ПО</h2>
         <h4 class="text-center text-white mt-2">Если Вы не хотите воспользоваться нашими предложениями, то можете собрать себе комплектацию самостоятельно</h4>
         <hr class="mb-5">
         <%@user ? user_cur = @user.id.to_s : ''%>
         <% if Geocoder.search(request.remote_ip).first.city == "Rostov-on-Don" or request.remote_ip == '127.0.0.1'%>
-        <%= react_component("NOForm", { sps: @sps.map{ |e| {value: e.id.to_s, name: e.name, label: "#{e.name}......цена: #{e.price} ₽", price: e.price} }.to_json, user_id: user_cur}) %>
+            <%# react_component 'CoresCPU' %>
+        <%= react_component("NOForm", { sps: @sps.map{ |e| {value: e.id.to_s, name: e.name, label: "#{e.name}       #{e.price} ₽", price: e.price} }.to_json, user_id: user_cur}) %>
         <% end %>
       </div>
     </section>
@@ -343,14 +351,22 @@
           <h2 class="text-center text-uppercase text-secondary mb-0">Мои заказы</h2>
           <div class="order" id="order"></div>
           
-          <% @user.order.each do |order| %>
+          <% @user.order.reverse.each do |order| %>
+          <% os_build = order.os_build ? OsBuild.find(order.os_build).price.to_i : 0 %>
+          <% os_options = order.os_options ? OsOption.find(order.os_options.reject{|i|i.empty?}).map{|i|i.price.to_i}.inject{|s, x| s + x} : 0 %>
+          <% taryph = order.taryph_id ? Taryph.find(order.taryph_id).price.to_i : 0 %>
+          <% sps = (order.sp_ids == nil or  !order.sp_ids.empty?) ? Sp.find(order.sp_ids.reject{|i|i.empty?}).map{|i|i.price.to_i}.inject{|s, x| s + x} : 0 %>
+          <% price = (os_build + taryph + sps + os_options) == 0 ? 'БЕСПЛАТНО' :  os_build + taryph + sps + os_options %>
           <br />
           <div class="card">
             <div class="card-header">
               <div class="card-title">Заказ: <%= (Digest::SHA256.hexdigest order.id.to_s)[-6..-1].to_i(16)%></div>
             </div>
               <div class="card-body">
-                <p>Куплен? <%= raw(!order.pre ? '<a style="color:green;">✔</a>':'<a style="color:red;">✘</a>') %></p>
+                <p>Цена: <%= price %> </p>
+                <% if price != 'БЕСПЛАТНО' %>
+                    <p>Куплен? <%= raw(!order.pre ? '<a style="color:green;">✔</a>':'<a style="color:red;">✘</a>') %></p>
+                <% end %>
                 <p>Тариф: <%= Taryph.where(id: order.taryph_id).empty? ? raw("<b class='text-danger'>Собран самостоятельно</b>") : Taryph.find(order.taryph_id).name %></p>
                 <%if order.sp_ids.empty?%><%else%><p>Самостоятельная сборка опций: <%= order.sp_ids.reject{|r|r.empty?}.map{|sps|Sp.find(sps).name}.join(', ') %></p>
                 <%end%>
@@ -418,7 +434,7 @@
           <%= link_to("Правка", taryph, class: "btn btn-info") if @admin%>
            <button type="button" style="background: white" class="btn btn-default" data-dismiss="modal">Закрыть</button>
            <!-- <button type="button" class="btn btn-primary">Оформить предзаказ</button> -->
-           <%= button_to 'ОФОРМИТЬ ПРЕДЗАКАЗ', users_create_pre_order_ajax_path, {onclick: "AdOrder(\"#{taryph._id.to_s}\");jQuery(\"#modal-#{taryph._id.to_s}\").modal(\"hide\")",params: { taryph_id: taryph._id.to_s }, remote: true, class: "btn btn-warning", style: "background: white"} %>
+           <%= button_to 'ОФОРМИТЬ ПРЕДЗАКАЗ', '#', {onclick: "AdOrder(\"#{taryph._id.to_s}\");jQuery(\"#modal-#{taryph._id.to_s}\").modal(\"hide\")", method: :get,remote: true, class: "btn btn-warning", style: "background: white"} %>
       </div>
     </div>
   </div>

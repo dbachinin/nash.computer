@@ -2,6 +2,8 @@
   "name": "nash_computer",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.0.3",
+    "@material-ui/lab": "^3.0.0-alpha.15",
     "@rails/webpacker": "^3.5.3",
     "axios": "^0.18.0",
     "babel-preset-react": "^6.24.1",

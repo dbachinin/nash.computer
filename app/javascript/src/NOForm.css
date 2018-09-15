@@ -711,58 +711,58 @@ div:first-child {
  vertical-align:middle
 }
 .floating-tag:nth-child(1) {
- top:340px;
+ top:540px;
  left:-60px;
 
 }
 .floating-tag:nth-child(2) {
- top:200px;
+ top:400px;
  left:180px;
 
  animation-delay:.5s
 }
 .floating-tag:nth-child(3) {
- top:220px;
- left:480px;
+ top:520px;
+ left:280px;
 
  animation-delay:1s
 }
 .floating-tag:nth-child(4) {
- top:210px;
+ top:410px;
  left:860px;
 
  animation-delay:1.5s
 }
 .floating-tag:nth-child(5) {
- top:120px;
+ top:320px;
  left:320px;
 
  animation-delay:2s
 }
 .floating-tag:nth-child(6) {
- top:360px;
+ top:560px;
  left:720px;
 
  animation-delay:2.5s
 }
 .floating-tag:nth-child(7) {
- top:370px;
+ top:570px;
  left:400px;
 
  animation-delay:2.9s
 }
 .floating-tag:nth-child(8) {
- top:125px;
+ top:325px;
  left:810px;
  animation-delay:2.8s
 }
 .floating-tag:nth-child(9) {
- top:205px;
+ top:405px;
  left:326px;
  animation-delay:3s
 }
 .floating-tag:nth-child(10) {
- top:225px;
+ top:525px;
  left:20px;
  animation-delay:1.7s
 }
